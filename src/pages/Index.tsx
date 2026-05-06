@@ -162,7 +162,7 @@ const Index = () => {
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">Verified Net Return</div>
-                  <div className="font-mono font-semibold text-success">+29.21% in 1Y</div>
+                  <div className="font-mono font-semibold text-success">+{pmsRet.toFixed(2)}% in 1Y</div>
                 </div>
               </div>
             </div>
