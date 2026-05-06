@@ -8,31 +8,45 @@ import {
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
 } from "recharts";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import heroImg from "@/assets/hero-finance.jpg";
 
-// Verified PnL data (capital base ₹35,00,000) — sourced from Zerodha verified P&L
-const performance = [
-  { m: "May '25", pms: 4.54 },
-  { m: "Jun", pms: 9.74 },
-  { m: "Jul", pms: 10.69 },
-  { m: "Aug", pms: 11.51 },
-  { m: "Sep", pms: 10.77 },
-  { m: "Oct", pms: 16.85 },
-  { m: "Nov", pms: 19.47 },
-  { m: "Dec", pms: 22.20 },
-  { m: "Jan '26", pms: 18.59 },
-  { m: "Feb", pms: 25.92 },
-  { m: "Mar", pms: 27.19 },
-  { m: "Apr", pms: 31.78 },
-  { m: "May '26", pms: 29.21 },
-];
+type ChartPoint = { m: string; pms: number; nifty: number | null };
+type PerfData = {
+  capital: number;
+  chart: ChartPoint[];
+  stats: Record<string, string>;
+  summary: {
+    pmsReturnPct: number;
+    niftyReturnPct: number | null;
+    outperformancePct: number | null;
+    netPnl: number | null;
+  };
+  updatedAt: string;
+};
 
-const stats = [
-  { label: "1Y Net Return", value: "29.21%", sub: "verified on Zerodha" },
-  { label: "Net PnL", value: "₹10.22 L", sub: "on ₹35 L capital" },
-  { label: "Sharpe Ratio", value: "1.72", sub: "risk-adjusted" },
-  { label: "Win Rate", value: "50%", sub: "avg RR 1.34" },
-];
+// Fallback data shown while loading or if fetch fails
+const fallback: PerfData = {
+  capital: 3500000,
+  chart: [
+    { m: "May '25", pms: 4.54, nifty: 0 },
+    { m: "May '26", pms: 29.21, nifty: -2.59 },
+  ],
+  stats: {
+    "Net PnL": "1022503.8", "% returns": "29.21%", "Sharpe Ratio": "1.72",
+    "Win Rate": "50.00%", "Average RR": "1.34", "Max DD": "-190040.0",
+    "Average Profit": "34043.7",
+  },
+  summary: { pmsReturnPct: 29.21, niftyReturnPct: -2.59, outperformancePct: 31.8, netPnl: 1022503.8 },
+  updatedAt: new Date().toISOString(),
+};
+
+const fmtINR = (n: number) => {
+  if (Math.abs(n) >= 10000000) return `₹${(n / 10000000).toFixed(2)} Cr`;
+  if (Math.abs(n) >= 100000) return `₹${(n / 100000).toFixed(2)} L`;
+  return `₹${n.toLocaleString("en-IN", { maximumFractionDigits: 0 })}`;
+};
 
 const services = [
   { icon: BarChart3, title: "Quant PMS", desc: "Algorithm-driven portfolio of 18-22 large & mid caps, rebalanced monthly.", tag: "Flagship" },
@@ -48,6 +62,35 @@ const courses = [
 ];
 
 const Index = () => {
+  const [data, setData] = useState<PerfData>(fallback);
+
+  useEffect(() => {
+    let cancelled = false;
+    supabase.functions.invoke("get-performance").then(({ data: d, error }) => {
+      if (cancelled || error || !d) return;
+      setData(d as PerfData);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  const performance = data.chart;
+  const pmsRet = data.summary.pmsReturnPct;
+  const niftyRet = data.summary.niftyReturnPct;
+  const outperf = data.summary.outperformancePct;
+  const netPnl = data.summary.netPnl ?? 0;
+  const sharpe = data.stats["Sharpe Ratio"] || "—";
+  const winRate = data.stats["Win Rate"] || "—";
+  const avgRR = data.stats["Average RR"] || "—";
+  const avgProfit = data.stats["Average Profit"] ? fmtINR(parseFloat(data.stats["Average Profit"])) : "—";
+  const maxDD = data.stats["Max DD"] ? `${((parseFloat(data.stats["Max DD"]) / data.capital) * 100).toFixed(2)}%` : "—";
+
+  const stats = [
+    { label: "1Y Net Return", value: `${pmsRet.toFixed(2)}%`, sub: "verified on Zerodha" },
+    { label: "Net PnL", value: fmtINR(netPnl), sub: `on ${fmtINR(data.capital)} capital` },
+    { label: "Sharpe Ratio", value: sharpe, sub: "risk-adjusted" },
+    { label: "Win Rate", value: winRate, sub: `avg RR ${avgRR}` },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
