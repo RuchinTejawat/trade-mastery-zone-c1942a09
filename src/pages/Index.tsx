@@ -10,27 +10,28 @@ import {
 } from "recharts";
 import heroImg from "@/assets/hero-finance.jpg";
 
+// Verified PnL data (capital base ₹35,00,000) — sourced from Zerodha verified P&L
 const performance = [
-  { m: "May '25", pms: 0, nifty: 0 },
-  { m: "Jun", pms: 3.2, nifty: 1.4 },
-  { m: "Jul", pms: 6.8, nifty: 3.1 },
-  { m: "Aug", pms: 5.9, nifty: 2.2 },
-  { m: "Sep", pms: 11.4, nifty: 5.6 },
-  { m: "Oct", pms: 14.8, nifty: 6.9 },
-  { m: "Nov", pms: 18.2, nifty: 8.4 },
-  { m: "Dec", pms: 22.6, nifty: 10.1 },
-  { m: "Jan '26", pms: 26.1, nifty: 11.3 },
-  { m: "Feb", pms: 29.8, nifty: 12.5 },
-  { m: "Mar", pms: 34.2, nifty: 14.2 },
-  { m: "Apr", pms: 38.7, nifty: 15.8 },
-  { m: "May '26", pms: 42.3, nifty: 17.4 },
+  { m: "May '25", pms: 4.54 },
+  { m: "Jun", pms: 9.74 },
+  { m: "Jul", pms: 10.69 },
+  { m: "Aug", pms: 11.51 },
+  { m: "Sep", pms: 10.77 },
+  { m: "Oct", pms: 16.85 },
+  { m: "Nov", pms: 19.47 },
+  { m: "Dec", pms: 22.20 },
+  { m: "Jan '26", pms: 18.59 },
+  { m: "Feb", pms: 25.92 },
+  { m: "Mar", pms: 27.19 },
+  { m: "Apr", pms: 31.78 },
+  { m: "May '26", pms: 29.21 },
 ];
 
 const stats = [
-  { label: "1Y Return", value: "42.3%", sub: "vs Nifty 17.4%" },
-  { label: "AUM Managed", value: "₹128 Cr", sub: "across 340+ clients" },
-  { label: "Win Rate", value: "78%", sub: "on advisory calls" },
-  { label: "Sharpe Ratio", value: "1.94", sub: "risk-adjusted" },
+  { label: "1Y Net Return", value: "29.21%", sub: "verified on Zerodha" },
+  { label: "Net PnL", value: "₹10.22 L", sub: "on ₹35 L capital" },
+  { label: "Sharpe Ratio", value: "1.72", sub: "risk-adjusted" },
+  { label: "Win Rate", value: "50%", sub: "avg RR 1.34" },
 ];
 
 const services = [
@@ -95,7 +96,7 @@ const Index = () => {
               </Button>
             </div>
             <div className="mt-10 grid grid-cols-3 gap-6 max-w-md">
-              {[["340+","Clients"],["₹128Cr","AUM"],["42.3%","1Y Return"]].map(([v,l])=>(
+              {[["29.21%","1Y Return"],["₹10.22L","Net PnL"],["1.72","Sharpe"]].map(([v,l])=>(
                 <div key={l}>
                   <div className="text-2xl font-bold font-mono text-gradient">{v}</div>
                   <div className="text-xs text-muted-foreground mt-1">{l}</div>
@@ -113,8 +114,8 @@ const Index = () => {
                   <TrendingUp className="h-5 w-5 text-success" />
                 </div>
                 <div>
-                  <div className="text-xs text-muted-foreground">Outperformance</div>
-                  <div className="font-mono font-semibold text-success">+24.9% vs Nifty</div>
+                  <div className="text-xs text-muted-foreground">Verified Net Return</div>
+                  <div className="font-mono font-semibold text-success">+29.21% in 1Y</div>
                 </div>
               </div>
             </div>
@@ -142,24 +143,31 @@ const Index = () => {
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/5">
               <LineIcon className="h-3.5 w-3.5 mr-1.5" /> Verified Performance
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold">12 months of <span className="text-gradient">consistent alpha.</span></h2>
-            <p className="mt-4 text-muted-foreground">Net cumulative returns of our flagship Quant PMS vs Nifty 50 benchmark. Past performance is not indicative of future results.</p>
+            <h2 className="text-4xl md:text-5xl font-bold">12 months of <span className="text-gradient">verified alpha.</span></h2>
+            <p className="mt-4 text-muted-foreground">Cumulative net returns of our flagship Quant PMS, independently verified on Zerodha. Capital base ₹35,00,000. Past performance is not indicative of future results.</p>
           </div>
           <Card className="bg-gradient-card border-border/60 p-6 md:p-8 shadow-elegant">
             <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-              <div className="flex gap-6">
+              <div className="flex flex-wrap gap-6">
                 <div className="flex items-center gap-2 text-sm">
                   <span className="h-2.5 w-2.5 rounded-full bg-primary shadow-glow" />
                   <span className="text-muted-foreground">Vrddhi Quant PMS</span>
-                  <span className="font-mono font-semibold text-primary">+42.3%</span>
+                  <span className="font-mono font-semibold text-primary">+29.21%</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
-                  <span className="h-2.5 w-2.5 rounded-full bg-accent" />
-                  <span className="text-muted-foreground">Nifty 50</span>
-                  <span className="font-mono font-semibold text-accent">+17.4%</span>
+                  <span className="text-muted-foreground">Net PnL</span>
+                  <span className="font-mono font-semibold text-success">₹10,22,504</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-muted-foreground">Max DD</span>
+                  <span className="font-mono font-semibold text-warning">-5.43%</span>
                 </div>
               </div>
-              <Badge className="bg-success/15 text-success border-success/30 hover:bg-success/15">Outperformed by 24.9%</Badge>
+              <a href="https://console.zerodha.com/verified/c4b578ef" target="_blank" rel="noopener noreferrer">
+                <Badge className="bg-success/15 text-success border-success/30 hover:bg-success/25 cursor-pointer">
+                  <ShieldCheck className="h-3.5 w-3.5 mr-1.5" /> Zerodha Verified P&L
+                </Badge>
+              </a>
             </div>
             <div className="h-[380px] w-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -168,10 +176,6 @@ const Index = () => {
                     <linearGradient id="pmsG" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.5} />
                       <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="nifG" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity={0.3} />
-                      <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -183,11 +187,28 @@ const Index = () => {
                     formatter={(v: number) => `${v}%`}
                   />
                   <Area type="monotone" dataKey="pms" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#pmsG)" />
-                  <Area type="monotone" dataKey="nifty" stroke="hsl(var(--accent))" strokeWidth={2} fill="url(#nifG)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
           </Card>
+
+          {/* Verified key metrics */}
+          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+            {[
+              ["Net PnL","₹10,22,504"],
+              ["% Return","29.21%"],
+              ["Sharpe","1.72"],
+              ["Win Rate","50.00%"],
+              ["Avg RR","1.34"],
+              ["Max DD","-5.43%"],
+              ["Avg Profit","₹34,044"],
+            ].map(([k,v])=>(
+              <div key={k} className="rounded-xl border border-border/60 bg-card/40 p-4">
+                <div className="text-[11px] uppercase tracking-widest text-muted-foreground">{k}</div>
+                <div className="mt-1 font-mono font-semibold text-foreground">{v}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
