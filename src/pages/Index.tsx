@@ -114,8 +114,8 @@ const Index = () => {
                   <TrendingUp className="h-5 w-5 text-success" />
                 </div>
                 <div>
-                  <div className="text-xs text-muted-foreground">Outperformance</div>
-                  <div className="font-mono font-semibold text-success">+24.9% vs Nifty</div>
+                  <div className="text-xs text-muted-foreground">Verified Net Return</div>
+                  <div className="font-mono font-semibold text-success">+29.21% in 1Y</div>
                 </div>
               </div>
             </div>
