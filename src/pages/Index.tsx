@@ -10,27 +10,28 @@ import {
 } from "recharts";
 import heroImg from "@/assets/hero-finance.jpg";
 
+// Verified PnL data (capital base ₹35,00,000) — sourced from Zerodha verified P&L
 const performance = [
-  { m: "May '25", pms: 0, nifty: 0 },
-  { m: "Jun", pms: 3.2, nifty: 1.4 },
-  { m: "Jul", pms: 6.8, nifty: 3.1 },
-  { m: "Aug", pms: 5.9, nifty: 2.2 },
-  { m: "Sep", pms: 11.4, nifty: 5.6 },
-  { m: "Oct", pms: 14.8, nifty: 6.9 },
-  { m: "Nov", pms: 18.2, nifty: 8.4 },
-  { m: "Dec", pms: 22.6, nifty: 10.1 },
-  { m: "Jan '26", pms: 26.1, nifty: 11.3 },
-  { m: "Feb", pms: 29.8, nifty: 12.5 },
-  { m: "Mar", pms: 34.2, nifty: 14.2 },
-  { m: "Apr", pms: 38.7, nifty: 15.8 },
-  { m: "May '26", pms: 42.3, nifty: 17.4 },
+  { m: "May '25", pms: 4.54 },
+  { m: "Jun", pms: 9.74 },
+  { m: "Jul", pms: 10.69 },
+  { m: "Aug", pms: 11.51 },
+  { m: "Sep", pms: 10.77 },
+  { m: "Oct", pms: 16.85 },
+  { m: "Nov", pms: 19.47 },
+  { m: "Dec", pms: 22.20 },
+  { m: "Jan '26", pms: 18.59 },
+  { m: "Feb", pms: 25.92 },
+  { m: "Mar", pms: 27.19 },
+  { m: "Apr", pms: 31.78 },
+  { m: "May '26", pms: 29.21 },
 ];
 
 const stats = [
-  { label: "1Y Return", value: "42.3%", sub: "vs Nifty 17.4%" },
-  { label: "AUM Managed", value: "₹128 Cr", sub: "across 340+ clients" },
-  { label: "Win Rate", value: "78%", sub: "on advisory calls" },
-  { label: "Sharpe Ratio", value: "1.94", sub: "risk-adjusted" },
+  { label: "1Y Net Return", value: "29.21%", sub: "verified on Zerodha" },
+  { label: "Net PnL", value: "₹10.22 L", sub: "on ₹35 L capital" },
+  { label: "Sharpe Ratio", value: "1.72", sub: "risk-adjusted" },
+  { label: "Win Rate", value: "50%", sub: "avg RR 1.34" },
 ];
 
 const services = [
