@@ -1,0 +1,4 @@
+project_id = "rkmagdzxnavhtaficiry"
+
+[functions.get-performance]
+verify_jwt = false

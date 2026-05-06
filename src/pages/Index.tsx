@@ -8,31 +8,45 @@ import {
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
 } from "recharts";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import heroImg from "@/assets/hero-finance.jpg";
 
-// Verified PnL data (capital base ₹35,00,000) — sourced from Zerodha verified P&L
-const performance = [
-  { m: "May '25", pms: 4.54 },
-  { m: "Jun", pms: 9.74 },
-  { m: "Jul", pms: 10.69 },
-  { m: "Aug", pms: 11.51 },
-  { m: "Sep", pms: 10.77 },
-  { m: "Oct", pms: 16.85 },
-  { m: "Nov", pms: 19.47 },
-  { m: "Dec", pms: 22.20 },
-  { m: "Jan '26", pms: 18.59 },
-  { m: "Feb", pms: 25.92 },
-  { m: "Mar", pms: 27.19 },
-  { m: "Apr", pms: 31.78 },
-  { m: "May '26", pms: 29.21 },
-];
+type ChartPoint = { m: string; pms: number; nifty: number | null };
+type PerfData = {
+  capital: number;
+  chart: ChartPoint[];
+  stats: Record<string, string>;
+  summary: {
+    pmsReturnPct: number;
+    niftyReturnPct: number | null;
+    outperformancePct: number | null;
+    netPnl: number | null;
+  };
+  updatedAt: string;
+};
 
-const stats = [
-  { label: "1Y Net Return", value: "29.21%", sub: "verified on Zerodha" },
-  { label: "Net PnL", value: "₹10.22 L", sub: "on ₹35 L capital" },
-  { label: "Sharpe Ratio", value: "1.72", sub: "risk-adjusted" },
-  { label: "Win Rate", value: "50%", sub: "avg RR 1.34" },
-];
+// Fallback data shown while loading or if fetch fails
+const fallback: PerfData = {
+  capital: 3500000,
+  chart: [
+    { m: "May '25", pms: 4.54, nifty: 0 },
+    { m: "May '26", pms: 29.21, nifty: -2.59 },
+  ],
+  stats: {
+    "Net PnL": "1022503.8", "% returns": "29.21%", "Sharpe Ratio": "1.72",
+    "Win Rate": "50.00%", "Average RR": "1.34", "Max DD": "-190040.0",
+    "Average Profit": "34043.7",
+  },
+  summary: { pmsReturnPct: 29.21, niftyReturnPct: -2.59, outperformancePct: 31.8, netPnl: 1022503.8 },
+  updatedAt: new Date().toISOString(),
+};
+
+const fmtINR = (n: number) => {
+  if (Math.abs(n) >= 10000000) return `₹${(n / 10000000).toFixed(2)} Cr`;
+  if (Math.abs(n) >= 100000) return `₹${(n / 100000).toFixed(2)} L`;
+  return `₹${n.toLocaleString("en-IN", { maximumFractionDigits: 0 })}`;
+};
 
 const services = [
   { icon: BarChart3, title: "Quant PMS", desc: "Algorithm-driven portfolio of 18-22 large & mid caps, rebalanced monthly.", tag: "Flagship" },
@@ -48,6 +62,35 @@ const courses = [
 ];
 
 const Index = () => {
+  const [data, setData] = useState<PerfData>(fallback);
+
+  useEffect(() => {
+    let cancelled = false;
+    supabase.functions.invoke("get-performance").then(({ data: d, error }) => {
+      if (cancelled || error || !d) return;
+      setData(d as PerfData);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  const performance = data.chart;
+  const pmsRet = data.summary.pmsReturnPct;
+  const niftyRet = data.summary.niftyReturnPct;
+  const outperf = data.summary.outperformancePct;
+  const netPnl = data.summary.netPnl ?? 0;
+  const sharpe = data.stats["Sharpe Ratio"] || "—";
+  const winRate = data.stats["Win Rate"] || "—";
+  const avgRR = data.stats["Average RR"] || "—";
+  const avgProfit = data.stats["Average Profit"] ? fmtINR(parseFloat(data.stats["Average Profit"])) : "—";
+  const maxDD = data.stats["Max DD"] ? `${((parseFloat(data.stats["Max DD"]) / data.capital) * 100).toFixed(2)}%` : "—";
+
+  const stats = [
+    { label: "1Y Net Return", value: `${pmsRet.toFixed(2)}%`, sub: "verified on Zerodha" },
+    { label: "Net PnL", value: fmtINR(netPnl), sub: `on ${fmtINR(data.capital)} capital` },
+    { label: "Sharpe Ratio", value: sharpe, sub: "risk-adjusted" },
+    { label: "Win Rate", value: winRate, sub: `avg RR ${avgRR}` },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
@@ -96,7 +139,11 @@ const Index = () => {
               </Button>
             </div>
             <div className="mt-10 grid grid-cols-3 gap-6 max-w-md">
-              {[["29.21%","1Y Return"],["₹10.22L","Net PnL"],["1.72","Sharpe"]].map(([v,l])=>(
+              {[
+                [`${pmsRet.toFixed(2)}%`, "1Y Return"],
+                [fmtINR(netPnl), "Net PnL"],
+                [sharpe, "Sharpe"],
+              ].map(([v, l]) => (
                 <div key={l}>
                   <div className="text-2xl font-bold font-mono text-gradient">{v}</div>
                   <div className="text-xs text-muted-foreground mt-1">{l}</div>
@@ -115,7 +162,7 @@ const Index = () => {
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">Verified Net Return</div>
-                  <div className="font-mono font-semibold text-success">+29.21% in 1Y</div>
+                  <div className="font-mono font-semibold text-success">+{pmsRet.toFixed(2)}% in 1Y</div>
                 </div>
               </div>
             </div>
@@ -148,20 +195,25 @@ const Index = () => {
           </div>
           <Card className="bg-gradient-card border-border/60 p-6 md:p-8 shadow-elegant">
             <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-              <div className="flex flex-wrap gap-6">
+              <div className="flex flex-wrap gap-x-6 gap-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <span className="h-2.5 w-2.5 rounded-full bg-primary shadow-glow" />
                   <span className="text-muted-foreground">Vrddhi Quant PMS</span>
-                  <span className="font-mono font-semibold text-primary">+29.21%</span>
+                  <span className="font-mono font-semibold text-primary">{pmsRet >= 0 ? "+" : ""}{pmsRet.toFixed(2)}%</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
-                  <span className="text-muted-foreground">Net PnL</span>
-                  <span className="font-mono font-semibold text-success">₹10,22,504</span>
+                  <span className="h-2.5 w-2.5 rounded-full bg-accent" />
+                  <span className="text-muted-foreground">Nifty 50</span>
+                  <span className="font-mono font-semibold text-accent">
+                    {niftyRet != null ? `${niftyRet >= 0 ? "+" : ""}${niftyRet.toFixed(2)}%` : "—"}
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="text-muted-foreground">Max DD</span>
-                  <span className="font-mono font-semibold text-warning">-5.43%</span>
-                </div>
+                {outperf != null && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-muted-foreground">Alpha</span>
+                    <span className="font-mono font-semibold text-success">+{outperf.toFixed(2)}%</span>
+                  </div>
+                )}
               </div>
               <a href="https://console.zerodha.com/verified/c4b578ef" target="_blank" rel="noopener noreferrer">
                 <Badge className="bg-success/15 text-success border-success/30 hover:bg-success/25 cursor-pointer">
@@ -177,6 +229,10 @@ const Index = () => {
                       <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.5} />
                       <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
                     </linearGradient>
+                    <linearGradient id="nifG" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity={0.3} />
+                      <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity={0} />
+                    </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis dataKey="m" stroke="hsl(var(--muted-foreground))" fontSize={12} />
@@ -184,8 +240,9 @@ const Index = () => {
                   <Tooltip
                     contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12 }}
                     labelStyle={{ color: "hsl(var(--foreground))" }}
-                    formatter={(v: number) => `${v}%`}
+                    formatter={(v: number, name: string) => [`${v}%`, name === "pms" ? "PMS" : "Nifty 50"]}
                   />
+                  <Area type="monotone" dataKey="nifty" stroke="hsl(var(--accent))" strokeWidth={2} fill="url(#nifG)" connectNulls />
                   <Area type="monotone" dataKey="pms" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#pmsG)" />
                 </AreaChart>
               </ResponsiveContainer>
@@ -195,20 +252,24 @@ const Index = () => {
           {/* Verified key metrics */}
           <div className="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
             {[
-              ["Net PnL","₹10,22,504"],
-              ["% Return","29.21%"],
-              ["Sharpe","1.72"],
-              ["Win Rate","50.00%"],
-              ["Avg RR","1.34"],
-              ["Max DD","-5.43%"],
-              ["Avg Profit","₹34,044"],
-            ].map(([k,v])=>(
+              ["Net PnL", fmtINR(netPnl)],
+              ["% Return", `${pmsRet.toFixed(2)}%`],
+              ["Sharpe", sharpe],
+              ["Win Rate", winRate],
+              ["Avg RR", avgRR],
+              ["Max DD", maxDD],
+              ["Avg Profit", avgProfit],
+            ].map(([k, v]) => (
               <div key={k} className="rounded-xl border border-border/60 bg-card/40 p-4">
                 <div className="text-[11px] uppercase tracking-widest text-muted-foreground">{k}</div>
                 <div className="mt-1 font-mono font-semibold text-foreground">{v}</div>
               </div>
             ))}
           </div>
+          <p className="mt-4 text-xs text-muted-foreground">
+            Live data · auto-synced from verified Zerodha P&L · Last updated{" "}
+            {new Date(data.updatedAt).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
+          </p>
         </div>
       </section>
 
