@@ -143,24 +143,31 @@ const Index = () => {
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/5">
               <LineIcon className="h-3.5 w-3.5 mr-1.5" /> Verified Performance
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold">12 months of <span className="text-gradient">consistent alpha.</span></h2>
-            <p className="mt-4 text-muted-foreground">Net cumulative returns of our flagship Quant PMS vs Nifty 50 benchmark. Past performance is not indicative of future results.</p>
+            <h2 className="text-4xl md:text-5xl font-bold">12 months of <span className="text-gradient">verified alpha.</span></h2>
+            <p className="mt-4 text-muted-foreground">Cumulative net returns of our flagship Quant PMS, independently verified on Zerodha. Capital base ₹35,00,000. Past performance is not indicative of future results.</p>
           </div>
           <Card className="bg-gradient-card border-border/60 p-6 md:p-8 shadow-elegant">
             <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-              <div className="flex gap-6">
+              <div className="flex flex-wrap gap-6">
                 <div className="flex items-center gap-2 text-sm">
                   <span className="h-2.5 w-2.5 rounded-full bg-primary shadow-glow" />
                   <span className="text-muted-foreground">Vrddhi Quant PMS</span>
-                  <span className="font-mono font-semibold text-primary">+42.3%</span>
+                  <span className="font-mono font-semibold text-primary">+29.21%</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
-                  <span className="h-2.5 w-2.5 rounded-full bg-accent" />
-                  <span className="text-muted-foreground">Nifty 50</span>
-                  <span className="font-mono font-semibold text-accent">+17.4%</span>
+                  <span className="text-muted-foreground">Net PnL</span>
+                  <span className="font-mono font-semibold text-success">₹10,22,504</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-muted-foreground">Max DD</span>
+                  <span className="font-mono font-semibold text-warning">-5.43%</span>
                 </div>
               </div>
-              <Badge className="bg-success/15 text-success border-success/30 hover:bg-success/15">Outperformed by 24.9%</Badge>
+              <a href="https://console.zerodha.com/verified/c4b578ef" target="_blank" rel="noopener noreferrer">
+                <Badge className="bg-success/15 text-success border-success/30 hover:bg-success/25 cursor-pointer">
+                  <ShieldCheck className="h-3.5 w-3.5 mr-1.5" /> Zerodha Verified P&L
+                </Badge>
+              </a>
             </div>
             <div className="h-[380px] w-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -169,10 +176,6 @@ const Index = () => {
                     <linearGradient id="pmsG" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.5} />
                       <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="nifG" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity={0.3} />
-                      <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -184,7 +187,6 @@ const Index = () => {
                     formatter={(v: number) => `${v}%`}
                   />
                   <Area type="monotone" dataKey="pms" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#pmsG)" />
-                  <Area type="monotone" dataKey="nifty" stroke="hsl(var(--accent))" strokeWidth={2} fill="url(#nifG)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
