@@ -96,7 +96,7 @@ const Index = () => {
               </Button>
             </div>
             <div className="mt-10 grid grid-cols-3 gap-6 max-w-md">
-              {[["340+","Clients"],["₹128Cr","AUM"],["42.3%","1Y Return"]].map(([v,l])=>(
+              {[["29.21%","1Y Return"],["₹10.22L","Net PnL"],["1.72","Sharpe"]].map(([v,l])=>(
                 <div key={l}>
                   <div className="text-2xl font-bold font-mono text-gradient">{v}</div>
                   <div className="text-xs text-muted-foreground mt-1">{l}</div>
