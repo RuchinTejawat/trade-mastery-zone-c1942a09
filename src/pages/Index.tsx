@@ -252,20 +252,24 @@ const Index = () => {
           {/* Verified key metrics */}
           <div className="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
             {[
-              ["Net PnL","₹10,22,504"],
-              ["% Return","29.21%"],
-              ["Sharpe","1.72"],
-              ["Win Rate","50.00%"],
-              ["Avg RR","1.34"],
-              ["Max DD","-5.43%"],
-              ["Avg Profit","₹34,044"],
-            ].map(([k,v])=>(
+              ["Net PnL", fmtINR(netPnl)],
+              ["% Return", `${pmsRet.toFixed(2)}%`],
+              ["Sharpe", sharpe],
+              ["Win Rate", winRate],
+              ["Avg RR", avgRR],
+              ["Max DD", maxDD],
+              ["Avg Profit", avgProfit],
+            ].map(([k, v]) => (
               <div key={k} className="rounded-xl border border-border/60 bg-card/40 p-4">
                 <div className="text-[11px] uppercase tracking-widest text-muted-foreground">{k}</div>
                 <div className="mt-1 font-mono font-semibold text-foreground">{v}</div>
               </div>
             ))}
           </div>
+          <p className="mt-4 text-xs text-muted-foreground">
+            Live data · auto-synced from verified Zerodha P&L · Last updated{" "}
+            {new Date(data.updatedAt).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
+          </p>
         </div>
       </section>
 
