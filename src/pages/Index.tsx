@@ -139,7 +139,11 @@ const Index = () => {
               </Button>
             </div>
             <div className="mt-10 grid grid-cols-3 gap-6 max-w-md">
-              {[["29.21%","1Y Return"],["₹10.22L","Net PnL"],["1.72","Sharpe"]].map(([v,l])=>(
+              {[
+                [`${pmsRet.toFixed(2)}%`, "1Y Return"],
+                [fmtINR(netPnl), "Net PnL"],
+                [sharpe, "Sharpe"],
+              ].map(([v, l]) => (
                 <div key={l}>
                   <div className="text-2xl font-bold font-mono text-gradient">{v}</div>
                   <div className="text-xs text-muted-foreground mt-1">{l}</div>
