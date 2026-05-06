@@ -195,20 +195,25 @@ const Index = () => {
           </div>
           <Card className="bg-gradient-card border-border/60 p-6 md:p-8 shadow-elegant">
             <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-              <div className="flex flex-wrap gap-6">
+              <div className="flex flex-wrap gap-x-6 gap-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <span className="h-2.5 w-2.5 rounded-full bg-primary shadow-glow" />
                   <span className="text-muted-foreground">Vrddhi Quant PMS</span>
-                  <span className="font-mono font-semibold text-primary">+29.21%</span>
+                  <span className="font-mono font-semibold text-primary">{pmsRet >= 0 ? "+" : ""}{pmsRet.toFixed(2)}%</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
-                  <span className="text-muted-foreground">Net PnL</span>
-                  <span className="font-mono font-semibold text-success">₹10,22,504</span>
+                  <span className="h-2.5 w-2.5 rounded-full bg-accent" />
+                  <span className="text-muted-foreground">Nifty 50</span>
+                  <span className="font-mono font-semibold text-accent">
+                    {niftyRet != null ? `${niftyRet >= 0 ? "+" : ""}${niftyRet.toFixed(2)}%` : "—"}
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="text-muted-foreground">Max DD</span>
-                  <span className="font-mono font-semibold text-warning">-5.43%</span>
-                </div>
+                {outperf != null && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-muted-foreground">Alpha</span>
+                    <span className="font-mono font-semibold text-success">+{outperf.toFixed(2)}%</span>
+                  </div>
+                )}
               </div>
               <a href="https://console.zerodha.com/verified/c4b578ef" target="_blank" rel="noopener noreferrer">
                 <Badge className="bg-success/15 text-success border-success/30 hover:bg-success/25 cursor-pointer">
@@ -224,6 +229,10 @@ const Index = () => {
                       <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.5} />
                       <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
                     </linearGradient>
+                    <linearGradient id="nifG" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity={0.3} />
+                      <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity={0} />
+                    </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis dataKey="m" stroke="hsl(var(--muted-foreground))" fontSize={12} />
@@ -231,8 +240,9 @@ const Index = () => {
                   <Tooltip
                     contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12 }}
                     labelStyle={{ color: "hsl(var(--foreground))" }}
-                    formatter={(v: number) => `${v}%`}
+                    formatter={(v: number, name: string) => [`${v}%`, name === "pms" ? "PMS" : "Nifty 50"]}
                   />
+                  <Area type="monotone" dataKey="nifty" stroke="hsl(var(--accent))" strokeWidth={2} fill="url(#nifG)" connectNulls />
                   <Area type="monotone" dataKey="pms" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#pmsG)" />
                 </AreaChart>
               </ResponsiveContainer>
