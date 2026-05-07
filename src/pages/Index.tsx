@@ -54,11 +54,75 @@ const services = [
   { icon: BarChart3, title: "Statistical Quant System", desc: "Data-driven, rules-based trading system built on statistical edges, rigorous backtests and disciplined risk management.", tag: "Flagship" },
 ];
 
-const courses = [
-  { title: "Stock Market 101", level: "Beginner", price: "₹2,499", hours: "12h", lessons: 48, color: "from-emerald-500/20 to-emerald-500/5" },
-  { title: "Technical Analysis Pro", level: "Intermediate", price: "₹6,999", hours: "28h", lessons: 96, color: "from-amber-500/20 to-amber-500/5" },
-  { title: "Options & Derivatives", level: "Advanced", price: "₹9,999", hours: "34h", lessons: 110, color: "from-emerald-500/20 to-emerald-500/5" },
-  { title: "Quant & Algo Trading", level: "Expert", price: "₹14,999", hours: "42h", lessons: 132, color: "from-amber-500/20 to-amber-500/5" },
+const curriculum = [
+  {
+    module: "Module 1",
+    title: "Basics of Options",
+    topics: [
+      "Call vs Put Options",
+      "Strike Price, Premium, Expiry",
+      "Option Buyer vs Seller: Rights & Obligations",
+      "Intrinsic Value & Time Value",
+      "Moneyness: ITM, ATM, OTM",
+    ],
+  },
+  {
+    module: "Module 2",
+    title: "Analysis of Options",
+    topics: [
+      "Option Chain Analysis",
+      "Concept of Open Interest",
+      "Concept of PCR, Max Pain",
+      "Option Greeks (Delta, Theta, Vega, Gamma, Rho)",
+      "India VIX and IV",
+      "IV Percentile & IV Rank",
+    ],
+  },
+  {
+    module: "Module 3",
+    title: "Statistical Parameters",
+    topics: [
+      "Normal Distribution",
+      "Z-Score and how it's calculated",
+      "Standard Deviation",
+      "Calculating Probability of Winning",
+      "Volatility",
+      "Expected Value",
+      "Edge Factor",
+      "Law of Large Numbers in Options",
+      "Win Rate vs Risk-Reward vs Drawdown",
+    ],
+  },
+  {
+    module: "Module 4",
+    title: "Option Strategies (Directional)",
+    topics: ["System 1", "System 2"],
+  },
+  {
+    module: "Module 5",
+    title: "Option Strategies (Non-Directional)",
+    topics: ["System 1", "System 2"],
+  },
+  {
+    module: "Module 6",
+    title: "Risk Management & Position Sizing",
+    topics: [
+      "Daily Risk Assessment",
+      "Portfolio Management",
+      "Drawdown Control",
+      "Hedging",
+      "Stop Loss & Trail SL Mechanics",
+    ],
+  },
+];
+
+const courseHighlights = [
+  "Live + recorded sessions by SEBI-registered analysts",
+  "Real, verified trade examples from our flagship strategy",
+  "Statistical & probability-driven approach (not chart guessing)",
+  "Hands-on with option chain, Greeks, IV and position sizing",
+  "Lifetime access to recordings & curriculum updates",
+  "Community access for doubt resolution",
 ];
 
 const Index = () => {
@@ -563,35 +627,110 @@ const Index = () => {
       {/* Courses */}
       <section id="courses" className="py-24">
         <div className="container">
-          <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
-            <div className="max-w-xl">
-              <Badge variant="outline" className="mb-4 border-accent/40 text-accent bg-accent/5">
-                <BookOpen className="h-3.5 w-3.5 mr-1.5" /> Vrddhi Academy
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold">Learn the markets from <span className="text-gradient-gold">SEBI-registered analysts.</span></h2>
-            </div>
-            <Button variant="outline" className="border-border/60">View all courses <ArrowRight className="ml-2 h-4 w-4" /></Button>
+          <div className="max-w-2xl mb-14">
+            <Badge variant="outline" className="mb-4 border-accent/40 text-accent bg-accent/5">
+              <BookOpen className="h-3.5 w-3.5 mr-1.5" /> Vrddhi Academy
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold">Learn the markets from <span className="text-gradient-gold">SEBI-registered analysts.</span></h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {courses.map((c) => (
-              <Card key={c.title} className={`group relative overflow-hidden bg-gradient-card border-border/60 p-6 hover:border-accent/40 transition-all hover:-translate-y-1`}>
-                <div className={`absolute inset-0 bg-gradient-to-br ${c.color} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                <div className="relative">
-                  <Badge className="bg-secondary/80 text-foreground border-0 mb-4">{c.level}</Badge>
-                  <h3 className="text-xl font-semibold leading-tight mb-3">{c.title}</h3>
-                  <div className="flex gap-4 text-xs text-muted-foreground mb-6 font-mono">
-                    <span>{c.hours}</span><span>·</span><span>{c.lessons} lessons</span>
-                  </div>
-                  <div className="flex items-center justify-between pt-4 border-t border-border/60">
-                    <span className="text-2xl font-bold font-mono text-gradient">{c.price}</span>
-                    <Button size="sm" variant="ghost" className="hover:bg-primary/10 hover:text-primary">
-                      Enroll <ArrowRight className="ml-1 h-3.5 w-3.5" />
-                    </Button>
-                  </div>
+
+          <Card className="relative overflow-hidden bg-gradient-card border-border/60 p-8 md:p-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-amber-500/5 pointer-events-none" />
+            <div className="relative grid lg:grid-cols-3 gap-8 items-start">
+              <div className="lg:col-span-2">
+                <Badge className="bg-secondary/80 text-foreground border-0 mb-4">Flagship · Beginner to Advanced</Badge>
+                <h3 className="text-3xl md:text-4xl font-bold leading-tight mb-3">Statistical Options Trading Program</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  A structured, statistics-first program built for serious traders who want to move beyond guesswork. Learn the exact framework — probability, volatility, Greeks, position sizing and disciplined risk management — that powers our verified flagship strategy.
+                </p>
+                <div className="flex flex-wrap gap-6 mt-6 text-sm">
+                  <div className="flex items-center gap-2"><PlayCircle className="h-4 w-4 text-primary" /><span><span className="font-semibold text-foreground">2 weeks</span> · Live + Recorded</span></div>
+                  <div className="flex items-center gap-2"><Users className="h-4 w-4 text-primary" /><span>Cohort + community</span></div>
+                  <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /><span>SEBI RA INH000017879</span></div>
                 </div>
-              </Card>
-            ))}
-          </div>
+              </div>
+              <div className="rounded-xl border border-border/60 bg-background/40 p-6 flex flex-col gap-4">
+                <div>
+                  <div className="text-xs uppercase tracking-wider text-muted-foreground">Program Fee</div>
+                  <div className="text-4xl font-bold font-mono text-gradient mt-1">₹20,000</div>
+                  <div className="text-xs text-muted-foreground">+ GST · one-time</div>
+                </div>
+                <div className="text-sm text-muted-foreground space-y-1.5">
+                  <div className="flex justify-between"><span>Duration</span><span className="text-foreground font-medium">2 weeks</span></div>
+                  <div className="flex justify-between"><span>Modules</span><span className="text-foreground font-medium">6</span></div>
+                  <div className="flex justify-between"><span>Level</span><span className="text-foreground font-medium">Basics → Advanced</span></div>
+                  <div className="flex justify-between"><span>Mode</span><span className="text-foreground font-medium">Online · Live</span></div>
+                </div>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90">View Curriculum <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl">Statistical Options Trading Program</DialogTitle>
+                      <DialogDescription>Basics to Advanced · 6 Modules · 2 Weeks · ₹20,000</DialogDescription>
+                    </DialogHeader>
+
+                    <div className="grid sm:grid-cols-3 gap-3 mt-2">
+                      <div className="rounded-lg border border-border/60 p-3">
+                        <div className="text-xs text-muted-foreground">Duration</div>
+                        <div className="text-lg font-semibold">2 Weeks</div>
+                      </div>
+                      <div className="rounded-lg border border-border/60 p-3">
+                        <div className="text-xs text-muted-foreground">Fees</div>
+                        <div className="text-lg font-semibold">₹20,000 <span className="text-xs text-muted-foreground">+ GST</span></div>
+                      </div>
+                      <div className="rounded-lg border border-border/60 p-3">
+                        <div className="text-xs text-muted-foreground">Format</div>
+                        <div className="text-lg font-semibold">Live + Recorded</div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">What you'll get</h4>
+                      <div className="grid sm:grid-cols-2 gap-2">
+                        {courseHighlights.map((h) => (
+                          <div key={h} className="flex items-start gap-2 text-sm">
+                            <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                            <span>{h}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">Curriculum</h4>
+                      <div className="space-y-3">
+                        {curriculum.map((m) => (
+                          <div key={m.module} className="rounded-lg border border-border/60 p-4 bg-card/30">
+                            <div className="flex items-baseline gap-3 mb-2">
+                              <Badge variant="outline" className="border-primary/40 text-primary bg-primary/5">{m.module}</Badge>
+                              <h5 className="font-semibold">{m.title}</h5>
+                            </div>
+                            <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                              {m.topics.map((t, i) => (
+                                <li key={t} className="flex gap-2">
+                                  <span className="font-mono text-primary/70">{i + 1}.</span>
+                                  <span>{t}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 text-sm text-muted-foreground flex gap-3">
+                      <AlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                      <span>Options trading involves market risk. The program teaches a statistical framework — past performance and educational examples do not guarantee future returns.</span>
+                    </div>
+
+                    <Button className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90">Enroll Now — ₹20,000</Button>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+          </Card>
         </div>
       </section>
 
