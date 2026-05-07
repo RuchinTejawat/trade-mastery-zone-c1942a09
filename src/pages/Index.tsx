@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import {
   ArrowRight, ShieldCheck, TrendingUp, BookOpen, BarChart3, Award,
   CheckCircle2, LineChart as LineIcon, Users, Target, Sparkles, PlayCircle,
+  Bot, Calculator, ShieldAlert, Sun, Wallet, UserCheck, AlertTriangle,
 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
@@ -296,34 +297,261 @@ const Index = () => {
                       Learn more <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </DialogTrigger>
-                  <DialogContent className="max-w-2xl bg-card border-border/60">
+                  <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-card border-border/60">
                     <DialogHeader>
-                      <DialogTitle className="text-2xl">{s.title}</DialogTitle>
+                      <DialogTitle className="text-3xl">
+                        Flagship Intraday Index Options Strategy
+                      </DialogTitle>
                       <DialogDescription>
-                        Verified live performance metrics — auto-synced from our Zerodha P&L statement.
+                        A professionally designed, fully-automated quantitative options-selling system
+                        built on probabilities, statistics & disciplined risk management.
                       </DialogDescription>
                     </DialogHeader>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
-                      {[
-                        { label: "1Y Return", value: `${pmsRet.toFixed(2)}%` },
-                        { label: "Net PnL", value: fmtINR(netPnl) },
-                        { label: "Capital Base", value: fmtINR(data.capital) },
-                        { label: "Sharpe Ratio", value: sharpe },
-                        { label: "Win Rate", value: winRate },
-                        { label: "Avg RR", value: avgRR },
-                        { label: "Avg Profit", value: avgProfit },
-                        { label: "Max Drawdown", value: maxDD },
-                        { label: "vs Nifty 50", value: outperf != null ? `+${outperf.toFixed(2)}%` : "—" },
-                      ].map((m) => (
-                        <div key={m.label} className="rounded-lg border border-border/60 bg-background/40 p-4">
-                          <div className="text-xs text-muted-foreground">{m.label}</div>
-                          <div className="text-lg font-bold font-mono text-gradient mt-1">{m.value}</div>
-                        </div>
-                      ))}
+
+                    {/* Philosophy */}
+                    <div className="mt-2 rounded-xl border border-border/60 bg-background/40 p-5">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        At <span className="text-foreground font-medium">Vrddhi Capital</span>, we believe successful trading
+                        is not built on predictions, emotions, or guesswork — it is built on
+                        <span className="text-primary"> probabilities, statistics, disciplined risk management,
+                        and systematic execution.</span> Our flagship strategy trades weekly expiry options on
+                        <span className="text-foreground font-medium"> NIFTY 50</span> and
+                        <span className="text-foreground font-medium"> BSE SENSEX</span> using a quantitative framework.
+                      </p>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-4">
-                      Last updated {new Date(data.updatedAt).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
-                    </p>
+
+                    {/* Live verified metrics */}
+                    <div>
+                      <h4 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+                        Live Verified Performance
+                      </h4>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {[
+                          { label: "1Y Return", value: `${pmsRet.toFixed(2)}%` },
+                          { label: "Net PnL", value: fmtINR(netPnl) },
+                          { label: "Capital Base", value: fmtINR(data.capital) },
+                          { label: "Sharpe Ratio", value: sharpe },
+                          { label: "Win Rate", value: winRate },
+                          { label: "Avg RR", value: avgRR },
+                          { label: "Avg Profit", value: avgProfit },
+                          { label: "Max Drawdown", value: maxDD },
+                          { label: "vs Nifty 50", value: outperf != null ? `+${outperf.toFixed(2)}%` : "—" },
+                        ].map((m) => (
+                          <div key={m.label} className="rounded-lg border border-border/60 bg-background/40 p-4">
+                            <div className="text-xs text-muted-foreground">{m.label}</div>
+                            <div className="text-lg font-bold font-mono text-gradient mt-1">{m.value}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Equity curve mini chart */}
+                    <div className="rounded-xl border border-border/60 bg-background/40 p-5">
+                      <div className="flex items-center justify-between mb-3">
+                        <h4 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+                          Cumulative Equity Curve
+                        </h4>
+                        <span className="text-xs text-muted-foreground">PMS vs Nifty 50</span>
+                      </div>
+                      <div className="h-[220px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <AreaChart data={performance} margin={{ top: 5, right: 5, bottom: 0, left: -25 }}>
+                            <defs>
+                              <linearGradient id="dlgPms" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.5} />
+                                <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                              </linearGradient>
+                            </defs>
+                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                            <XAxis dataKey="m" stroke="hsl(var(--muted-foreground))" fontSize={11} />
+                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} tickFormatter={(v)=>`${v}%`} />
+                            <Tooltip
+                              contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12 }}
+                              formatter={(v: number, name: string) => [`${v}%`, name === "pms" ? "PMS" : "Nifty 50"]}
+                            />
+                            <Area type="monotone" dataKey="nifty" stroke="hsl(var(--accent))" strokeWidth={1.5} fill="none" connectNulls />
+                            <Area type="monotone" dataKey="pms" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#dlgPms)" />
+                          </AreaChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </div>
+
+                    {/* Fully Automated */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Bot className="h-5 w-5 text-primary" />
+                        <h4 className="text-lg font-semibold">Fully Automated Execution</h4>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                        All trades execute directly in the client's demat & trading account — zero manual
+                        intervention. Once activated, the system handles the entire trade lifecycle:
+                      </p>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {[
+                          "Trade identification", "Entry execution", "Risk management",
+                          "Stop-loss management", "Position adjustments", "Exit execution",
+                        ].map(t => (
+                          <div key={t} className="flex items-center gap-2 text-sm">
+                            <CheckCircle2 className="h-4 w-4 text-success shrink-0" />
+                            <span className="text-muted-foreground">{t}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-4 grid sm:grid-cols-2 gap-2">
+                        {[
+                          "No emotional decision-making",
+                          "No discretionary trading",
+                          "No need to monitor charts",
+                          "Consistent rule-based execution",
+                        ].map(t => (
+                          <div key={t} className="flex items-center gap-2 text-sm rounded-lg bg-primary/5 border border-primary/20 px-3 py-2">
+                            <Sparkles className="h-3.5 w-3.5 text-primary shrink-0" />
+                            <span>{t}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Quant Edge */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Calculator className="h-5 w-5 text-primary" />
+                        <h4 className="text-lg font-semibold">Quantitative & Statistical Edge</h4>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                        Unlike traditional option-selling that relies on views or indicators, our strategy
+                        uses advanced statistical concepts to identify high-probability opportunities:
+                      </p>
+                      <div className="grid sm:grid-cols-2 gap-2">
+                        {[
+                          "Normal Distribution Models",
+                          "Z-Score Calculations",
+                          "PMP — Probability of Maximum Profit",
+                          "Volatility-based calculations",
+                          "Probability-driven risk assessment",
+                        ].map(t => (
+                          <div key={t} className="flex items-center gap-2 text-sm rounded-lg border border-border/60 bg-background/40 px-3 py-2">
+                            <Target className="h-4 w-4 text-primary shrink-0" />
+                            <span>{t}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-3 italic">
+                        The objective is not to predict every move — it is to build a long-term statistical
+                        edge through disciplined execution and controlled risk.
+                      </p>
+                    </div>
+
+                    {/* Risk Framework */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <ShieldAlert className="h-5 w-5 text-primary" />
+                        <h4 className="text-lg font-semibold">Defined Risk Framework</h4>
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        <div className="rounded-xl border border-success/30 bg-success/5 p-4">
+                          <div className="text-xs uppercase tracking-widest text-muted-foreground">Daily Risk Limit</div>
+                          <div className="text-3xl font-bold font-mono text-success mt-1">~1%</div>
+                          <div className="text-xs text-muted-foreground mt-1">of trading capital per day</div>
+                        </div>
+                        <div className="rounded-xl border border-primary/30 bg-primary/5 p-4">
+                          <div className="text-xs uppercase tracking-widest text-muted-foreground">VAR (Value at Risk)</div>
+                          <div className="text-3xl font-bold font-mono text-primary mt-1">&lt; 15%</div>
+                          <div className="text-xs text-muted-foreground mt-1">controlled exposure even in volatile markets</div>
+                        </div>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                        The goal is not aggressive leverage — it is sustainable, structured capital deployment.
+                      </p>
+                    </div>
+
+                    {/* Pure Intraday */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Sun className="h-5 w-5 text-primary" />
+                        <h4 className="text-lg font-semibold">Pure Intraday — No Overnight Risk</h4>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                        All positions are squared off the same trading day, eliminating:
+                      </p>
+                      <div className="grid grid-cols-2 gap-2">
+                        {[
+                          "Overnight gap risk",
+                          "Global event risk",
+                          "Overnight volatility shocks",
+                          "After-hours news impact",
+                        ].map(t => (
+                          <div key={t} className="flex items-center gap-2 text-sm rounded-lg bg-destructive/5 border border-destructive/20 px-3 py-2">
+                            <ShieldCheck className="h-3.5 w-3.5 text-success shrink-0" />
+                            <span className="text-muted-foreground">{t}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Capital Requirement */}
+                    <div className="rounded-xl border border-border/60 bg-gradient-card p-5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Wallet className="h-5 w-5 text-primary" />
+                        <h4 className="text-lg font-semibold">Capital Requirement</h4>
+                      </div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-xs uppercase tracking-widest text-muted-foreground">Minimum Recommended</span>
+                        <span className="text-3xl font-bold font-mono text-gradient">₹10 Lakhs</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-3 mb-2">Margin can be arranged through:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {["Cash", "Liquid Funds", "Approved Stock Collateral", "ETFs & Eligible Instruments"].map(t => (
+                          <Badge key={t} variant="outline" className="border-primary/30 bg-primary/5">{t}</Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Suitable For */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <UserCheck className="h-5 w-5 text-primary" />
+                        <h4 className="text-lg font-semibold">Suitable For</h4>
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-2">
+                        {[
+                          "Professionals seeking systematic trading exposure",
+                          "Investors who want non-discretionary execution",
+                          "Traders preferring defined-risk strategies",
+                          "Anyone wanting automated options trading",
+                          "Participants seeking probability-based systems",
+                        ].map(t => (
+                          <div key={t} className="flex items-start gap-2 text-sm">
+                            <CheckCircle2 className="h-4 w-4 text-success mt-0.5 shrink-0" />
+                            <span className="text-muted-foreground">{t}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Disclaimer */}
+                    <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 flex gap-3">
+                      <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                      <div className="text-xs text-muted-foreground leading-relaxed">
+                        <span className="font-semibold text-foreground">Important:</span> Options trading involves
+                        market risk and past performance does not guarantee future returns. The strategy is built
+                        on statistical principles and disciplined risk management, but losses can occur during
+                        adverse market conditions. Please understand the framework and associated risks before
+                        deployment.
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border/60">
+                      <p className="text-xs text-muted-foreground">
+                        Live data · auto-synced · Last updated{" "}
+                        {new Date(data.updatedAt).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
+                      </p>
+                      <a href="https://console.zerodha.com/verified/c4b578ef" target="_blank" rel="noopener noreferrer">
+                        <Badge className="bg-success/15 text-success border-success/30 hover:bg-success/25 cursor-pointer">
+                          <ShieldCheck className="h-3.5 w-3.5 mr-1.5" /> View Detailed Strategy Performance
+                        </Badge>
+                      </a>
+                    </div>
                   </DialogContent>
                 </Dialog>
               </Card>
