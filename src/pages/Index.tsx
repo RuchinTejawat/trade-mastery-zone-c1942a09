@@ -49,9 +49,7 @@ const fmtINR = (n: number) => {
 };
 
 const services = [
-  { icon: BarChart3, title: "Quant PMS", desc: "Algorithm-driven portfolio of 18-22 large & mid caps, rebalanced monthly.", tag: "Flagship" },
-  { icon: Target, title: "Multi-Cap Alpha", desc: "Concentrated bets across market caps with strict risk overlays and stop-loss discipline.", tag: "Aggressive" },
-  { icon: ShieldCheck, title: "Wealth Preserver", desc: "Low-volatility strategy combining bluechips, ETFs and arbitrage for steady compounding.", tag: "Conservative" },
+  { icon: BarChart3, title: "Statistical Quant System", desc: "Data-driven, rules-based trading system built on statistical edges, rigorous backtests and disciplined risk management.", tag: "Flagship" },
 ];
 
 const courses = [
