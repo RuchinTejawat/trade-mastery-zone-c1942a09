@@ -54,11 +54,75 @@ const services = [
   { icon: BarChart3, title: "Statistical Quant System", desc: "Data-driven, rules-based trading system built on statistical edges, rigorous backtests and disciplined risk management.", tag: "Flagship" },
 ];
 
-const courses = [
-  { title: "Stock Market 101", level: "Beginner", price: "₹2,499", hours: "12h", lessons: 48, color: "from-emerald-500/20 to-emerald-500/5" },
-  { title: "Technical Analysis Pro", level: "Intermediate", price: "₹6,999", hours: "28h", lessons: 96, color: "from-amber-500/20 to-amber-500/5" },
-  { title: "Options & Derivatives", level: "Advanced", price: "₹9,999", hours: "34h", lessons: 110, color: "from-emerald-500/20 to-emerald-500/5" },
-  { title: "Quant & Algo Trading", level: "Expert", price: "₹14,999", hours: "42h", lessons: 132, color: "from-amber-500/20 to-amber-500/5" },
+const curriculum = [
+  {
+    module: "Module 1",
+    title: "Basics of Options",
+    topics: [
+      "Call vs Put Options",
+      "Strike Price, Premium, Expiry",
+      "Option Buyer vs Seller: Rights & Obligations",
+      "Intrinsic Value & Time Value",
+      "Moneyness: ITM, ATM, OTM",
+    ],
+  },
+  {
+    module: "Module 2",
+    title: "Analysis of Options",
+    topics: [
+      "Option Chain Analysis",
+      "Concept of Open Interest",
+      "Concept of PCR, Max Pain",
+      "Option Greeks (Delta, Theta, Vega, Gamma, Rho)",
+      "India VIX and IV",
+      "IV Percentile & IV Rank",
+    ],
+  },
+  {
+    module: "Module 3",
+    title: "Statistical Parameters",
+    topics: [
+      "Normal Distribution",
+      "Z-Score and how it's calculated",
+      "Standard Deviation",
+      "Calculating Probability of Winning",
+      "Volatility",
+      "Expected Value",
+      "Edge Factor",
+      "Law of Large Numbers in Options",
+      "Win Rate vs Risk-Reward vs Drawdown",
+    ],
+  },
+  {
+    module: "Module 4",
+    title: "Option Strategies (Directional)",
+    topics: ["System 1", "System 2"],
+  },
+  {
+    module: "Module 5",
+    title: "Option Strategies (Non-Directional)",
+    topics: ["System 1", "System 2"],
+  },
+  {
+    module: "Module 6",
+    title: "Risk Management & Position Sizing",
+    topics: [
+      "Daily Risk Assessment",
+      "Portfolio Management",
+      "Drawdown Control",
+      "Hedging",
+      "Stop Loss & Trail SL Mechanics",
+    ],
+  },
+];
+
+const courseHighlights = [
+  "Live + recorded sessions by SEBI-registered analysts",
+  "Real, verified trade examples from our flagship strategy",
+  "Statistical & probability-driven approach (not chart guessing)",
+  "Hands-on with option chain, Greeks, IV and position sizing",
+  "Lifetime access to recordings & curriculum updates",
+  "Community access for doubt resolution",
 ];
 
 const Index = () => {
