@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import {
   ArrowRight, ShieldCheck, TrendingUp, BookOpen, BarChart3, Award,
   CheckCircle2, LineChart as LineIcon, Users, Target, Sparkles, PlayCircle,
@@ -49,9 +50,7 @@ const fmtINR = (n: number) => {
 };
 
 const services = [
-  { icon: BarChart3, title: "Quant PMS", desc: "Algorithm-driven portfolio of 18-22 large & mid caps, rebalanced monthly.", tag: "Flagship" },
-  { icon: Target, title: "Multi-Cap Alpha", desc: "Concentrated bets across market caps with strict risk overlays and stop-loss discipline.", tag: "Aggressive" },
-  { icon: ShieldCheck, title: "Wealth Preserver", desc: "Low-volatility strategy combining bluechips, ETFs and arbitrage for steady compounding.", tag: "Conservative" },
+  { icon: BarChart3, title: "Statistical Quant System", desc: "Data-driven, rules-based trading system built on statistical edges, rigorous backtests and disciplined risk management.", tag: "Flagship" },
 ];
 
 const courses = [
@@ -278,10 +277,10 @@ const Index = () => {
         <div className="container">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/5">PMS Strategies</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold">Portfolios engineered for <span className="text-gradient">every risk profile.</span></h2>
+            <h2 className="text-4xl md:text-5xl font-bold">A single, focused <span className="text-gradient">quant strategy.</span></h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {services.map((s, i) => (
+          <div className="grid md:grid-cols-1 gap-6 max-w-2xl mx-auto">
+            {services.map((s) => (
               <Card key={s.title} className="group relative bg-gradient-card border-border/60 p-8 hover:border-primary/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-glow">
                 <div className="flex items-center justify-between mb-6">
                   <div className="h-12 w-12 rounded-xl bg-primary/10 grid place-items-center text-primary group-hover:bg-gradient-primary group-hover:text-primary-foreground transition-all">
@@ -291,9 +290,42 @@ const Index = () => {
                 </div>
                 <h3 className="text-2xl font-semibold mb-3">{s.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{s.desc}</p>
-                <div className="mt-6 flex items-center text-primary text-sm font-medium">
-                  Learn more <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </div>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button className="mt-6 flex items-center text-primary text-sm font-medium hover:underline">
+                      Learn more <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl bg-card border-border/60">
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl">{s.title}</DialogTitle>
+                      <DialogDescription>
+                        Verified live performance metrics — auto-synced from our Zerodha P&L statement.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
+                      {[
+                        { label: "1Y Return", value: `${pmsRet.toFixed(2)}%` },
+                        { label: "Net PnL", value: fmtINR(netPnl) },
+                        { label: "Capital Base", value: fmtINR(data.capital) },
+                        { label: "Sharpe Ratio", value: sharpe },
+                        { label: "Win Rate", value: winRate },
+                        { label: "Avg RR", value: avgRR },
+                        { label: "Avg Profit", value: avgProfit },
+                        { label: "Max Drawdown", value: maxDD },
+                        { label: "vs Nifty 50", value: outperf != null ? `+${outperf.toFixed(2)}%` : "—" },
+                      ].map((m) => (
+                        <div key={m.label} className="rounded-lg border border-border/60 bg-background/40 p-4">
+                          <div className="text-xs text-muted-foreground">{m.label}</div>
+                          <div className="text-lg font-bold font-mono text-gradient mt-1">{m.value}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-4">
+                      Last updated {new Date(data.updatedAt).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
+                    </p>
+                  </DialogContent>
+                </Dialog>
               </Card>
             ))}
           </div>
