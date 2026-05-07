@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import {
   ArrowRight, ShieldCheck, TrendingUp, BookOpen, BarChart3, Award,
   CheckCircle2, LineChart as LineIcon, Users, Target, Sparkles, PlayCircle,
