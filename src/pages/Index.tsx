@@ -725,7 +725,9 @@ const Index = () => {
                       <span>Options trading involves market risk. The program teaches a statistical framework — past performance and educational examples do not guarantee future returns.</span>
                     </div>
 
-                    <Button className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90">Enroll Now — ₹20,000</Button>
+                    <Button asChild className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90">
+                      <a href="https://forms.gle/f83wDqZDcqLfhf6v9" target="_blank" rel="noopener noreferrer">Enroll Now — ₹20,000</a>
+                    </Button>
                   </DialogContent>
                 </Dialog>
               </div>
