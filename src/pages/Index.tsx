@@ -342,12 +342,11 @@ const Index = () => {
       {/* Services */}
       <section id="services" className="py-24 bg-card/20 border-y border-border/60">
         <div className="container">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <div className="max-w-2xl mb-14">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/5">PMS Strategies</Badge>
             <h2 className="text-4xl md:text-5xl font-bold">A single, focused <span className="text-gradient">quant strategy.</span></h2>
           </div>
-          <div className="max-w-5xl mx-auto">
-            {services.map((s) => (
+          {services.map((s) => (
               <Card key={s.title} className="relative overflow-hidden bg-gradient-card border-border/60 p-8 md:p-10">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/5 pointer-events-none" />
                 <div className="relative grid lg:grid-cols-3 gap-8 items-start">
