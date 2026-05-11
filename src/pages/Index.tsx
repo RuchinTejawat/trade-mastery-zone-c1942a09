@@ -172,8 +172,10 @@ const Index = () => {
             <a href="#courses" className="hover:text-foreground transition-colors">Academy</a>
             <a href="#about" className="hover:text-foreground transition-colors">About</a>
           </nav>
-          <Button variant="default" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow">
-            Book a Call <ArrowRight className="ml-1 h-4 w-4" />
+          <Button asChild variant="default" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow">
+            <a href="https://forms.gle/chUXyDfLjCkWWvTH8" target="_blank" rel="noopener noreferrer">
+              Book a Call <ArrowRight className="ml-1 h-4 w-4" />
+            </a>
           </Button>
         </div>
       </header>
