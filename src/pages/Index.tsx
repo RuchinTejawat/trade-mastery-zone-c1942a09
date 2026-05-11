@@ -638,8 +638,7 @@ const Index = () => {
               </Card>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* Courses */}
       <section id="courses" className="py-24">
