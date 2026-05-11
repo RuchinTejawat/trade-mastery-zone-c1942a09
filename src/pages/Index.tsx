@@ -346,23 +346,37 @@ const Index = () => {
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/5">PMS Strategies</Badge>
             <h2 className="text-4xl md:text-5xl font-bold">A single, focused <span className="text-gradient">quant strategy.</span></h2>
           </div>
-          <div className="grid md:grid-cols-1 gap-6 max-w-2xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             {services.map((s) => (
-              <Card key={s.title} className="group relative bg-gradient-card border-border/60 p-8 hover:border-primary/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-glow">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="h-12 w-12 rounded-xl bg-primary/10 grid place-items-center text-primary group-hover:bg-gradient-primary group-hover:text-primary-foreground transition-all">
-                    <s.icon className="h-6 w-6" />
+              <Card key={s.title} className="relative overflow-hidden bg-gradient-card border-border/60 p-8 md:p-10">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/5 pointer-events-none" />
+                <div className="relative grid lg:grid-cols-3 gap-8 items-start">
+                  <div className="lg:col-span-2">
+                    <Badge className="bg-secondary/80 text-foreground border-0 mb-4">{s.tag} · Intraday Options</Badge>
+                    <h3 className="text-3xl md:text-4xl font-bold leading-tight mb-3">{s.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{s.desc}</p>
+                    <div className="flex flex-wrap gap-6 mt-6 text-sm">
+                      <div className="flex items-center gap-2"><BarChart3 className="h-4 w-4 text-primary" /><span><span className="font-semibold text-foreground">NIFTY 50</span> + BSE SENSEX</span></div>
+                      <div className="flex items-center gap-2"><Sun className="h-4 w-4 text-primary" /><span>Pure Intraday · No overnight risk</span></div>
+                      <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /><span>SEBI RA INH000017879</span></div>
+                    </div>
                   </div>
-                  <Badge variant="outline" className="border-border/60 text-xs">{s.tag}</Badge>
-                </div>
-                <h3 className="text-2xl font-semibold mb-3">{s.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{s.desc}</p>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <button className="mt-6 flex items-center text-primary text-sm font-medium hover:underline">
-                      Learn more <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                  </DialogTrigger>
+                  <div className="rounded-xl border border-border/60 bg-background/40 p-6 flex flex-col gap-4">
+                    <div>
+                      <div className="text-xs uppercase tracking-wider text-muted-foreground">1Y Verified Return</div>
+                      <div className="text-4xl font-bold font-mono text-gradient mt-1">{pmsRet.toFixed(2)}%</div>
+                      <div className="text-xs text-muted-foreground">Live · Zerodha verified</div>
+                    </div>
+                    <div className="text-sm text-muted-foreground space-y-1.5">
+                      <div className="flex justify-between"><span>Min. Capital</span><span className="text-foreground font-medium">₹10 Lakhs</span></div>
+                      <div className="flex justify-between"><span>Win Rate</span><span className="text-foreground font-medium">{winRate}</span></div>
+                      <div className="flex justify-between"><span>Sharpe</span><span className="text-foreground font-medium">{sharpe}</span></div>
+                      <div className="flex justify-between"><span>Max DD</span><span className="text-foreground font-medium">{maxDD}</span></div>
+                    </div>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90">Learn More <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                      </DialogTrigger>
                   <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-card border-border/60">
                     <DialogHeader>
                       <DialogTitle className="text-3xl">
@@ -620,6 +634,8 @@ const Index = () => {
                     </div>
                   </DialogContent>
                 </Dialog>
+                  </div>
+                </div>
               </Card>
             ))}
           </div>
