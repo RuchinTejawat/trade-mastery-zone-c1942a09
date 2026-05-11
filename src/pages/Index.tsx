@@ -792,8 +792,10 @@ const Index = () => {
                 Schedule a 30-minute consultation with our portfolio managers. No obligations.
               </p>
               <div className="mt-10 flex flex-wrap gap-3 justify-center">
-                <Button size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow h-12 px-8">
-                  Book Free Consultation <ArrowRight className="ml-2 h-4 w-4" />
+                <Button asChild size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow h-12 px-8">
+                  <a href="https://forms.gle/chUXyDfLjCkWWvTH8" target="_blank" rel="noopener noreferrer">
+                    Book Free Consultation <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
                 </Button>
                 <Button size="lg" variant="outline" className="h-12 px-8 border-border/60">
                   Download Factsheet
