@@ -197,8 +197,8 @@ const Index = () => {
               India's research-first fintech delivering institutional-grade PMS strategies and a world-class stock market academy — built by SEBI-registered analysts.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow h-12 px-6">
-                Explore PMS <ArrowRight className="ml-2 h-4 w-4" />
+              <Button asChild size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow h-12 px-6">
+                <a href="#services">Explore PMS <ArrowRight className="ml-2 h-4 w-4" /></a>
               </Button>
               <Button size="lg" variant="outline" className="h-12 px-6 border-border/60 hover:bg-secondary">
                 <PlayCircle className="mr-2 h-4 w-4" /> Watch Demo
