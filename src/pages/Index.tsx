@@ -117,7 +117,7 @@ const curriculum = [
 ];
 
 const courseHighlights = [
-  "Live + recorded sessions by SEBI-registered analysts",
+  "Live + recorded sessions by quant experts",
   "Real, verified trade examples from our flagship strategy",
   "Statistical & probability-driven approach (not chart guessing)",
   "Hands-on with option chain, Greeks, IV and position sizing",
@@ -164,7 +164,7 @@ const Index = () => {
             <div className="h-9 w-9 rounded-lg bg-gradient-primary grid place-items-center shadow-glow">
               <TrendingUp className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="font-semibold tracking-tight text-lg">Vrddhi<span className="text-primary">.</span>Capital</span>
+            <span className="font-semibold tracking-tight text-lg">Proption<span className="text-primary"> </span>Fintech</span>
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <a href="#performance" className="hover:text-foreground transition-colors">Performance</a>
@@ -187,14 +187,14 @@ const Index = () => {
         <div className="container relative grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-up">
             <Badge variant="outline" className="mb-6 border-primary/40 text-primary bg-primary/10 px-3 py-1.5">
-              <ShieldCheck className="h-3.5 w-3.5 mr-1.5" /> SEBI Registered RA · INH000017879
+              <ShieldCheck className="h-3.5 w-3.5 mr-1.5" /> Research backed by SEBI RA · CA Prachi Mehta (INH000017879)
             </Badge>
             <h1 className="text-5xl md:text-7xl font-bold leading-[1.05] tracking-tight">
               Compound your <span className="text-gradient">capital.</span><br/>
               Master the <span className="text-gradient-gold">markets.</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-xl leading-relaxed">
-              India's research-first fintech delivering institutional-grade PMS strategies and a world-class stock market academy — built by SEBI-registered analysts.
+              India's research-first fintech delivering institutional-grade PMS strategies and a world-class stock market academy — built by quant experts.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow h-12 px-6">
@@ -264,7 +264,7 @@ const Index = () => {
               <div className="flex flex-wrap gap-x-6 gap-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <span className="h-2.5 w-2.5 rounded-full bg-primary shadow-glow" />
-                  <span className="text-muted-foreground">Vrddhi Quant PMS</span>
+                  <span className="text-muted-foreground">Proption Quant PMS</span>
                   <span className="font-mono font-semibold text-primary">{pmsRet >= 0 ? "+" : ""}{pmsRet.toFixed(2)}%</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
@@ -357,7 +357,7 @@ const Index = () => {
                     <div className="flex flex-wrap gap-6 mt-6 text-sm">
                       <div className="flex items-center gap-2"><BarChart3 className="h-4 w-4 text-primary" /><span><span className="font-semibold text-foreground">NIFTY 50</span> + BSE SENSEX</span></div>
                       <div className="flex items-center gap-2"><Sun className="h-4 w-4 text-primary" /><span>Pure Intraday · No overnight risk</span></div>
-                      <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /><span>SEBI RA INH000017879</span></div>
+                      <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /><span>Research by SEBI RA — CA Prachi Mehta</span></div>
                     </div>
                   </div>
                   <div className="rounded-xl border border-border/60 bg-background/40 p-6 flex flex-col gap-4">
@@ -390,7 +390,7 @@ const Index = () => {
                     {/* Philosophy */}
                     <div className="mt-2 rounded-xl border border-border/60 bg-background/40 p-5">
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        At <span className="text-foreground font-medium">Vrddhi Capital</span>, we believe successful trading
+                        At <span className="text-foreground font-medium">Proption Fintech</span>, we believe successful trading
                         is not built on predictions, emotions, or guesswork — it is built on
                         <span className="text-primary"> probabilities, statistics, disciplined risk management,
                         and systematic execution.</span> Our flagship strategy trades weekly expiry options on
@@ -645,9 +645,9 @@ const Index = () => {
         <div className="container">
           <div className="max-w-2xl mb-14">
             <Badge variant="outline" className="mb-4 border-accent/40 text-accent bg-accent/5">
-              <BookOpen className="h-3.5 w-3.5 mr-1.5" /> Vrddhi Academy
+              <BookOpen className="h-3.5 w-3.5 mr-1.5" /> Proption Academy
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold">Learn the markets from <span className="text-gradient-gold">SEBI-registered analysts.</span></h2>
+            <h2 className="text-4xl md:text-5xl font-bold">Learn the markets from <span className="text-gradient-gold">Quant Experts.</span></h2>
           </div>
 
           <Card className="relative overflow-hidden bg-gradient-card border-border/60 p-8 md:p-10">
@@ -662,7 +662,7 @@ const Index = () => {
                 <div className="flex flex-wrap gap-6 mt-6 text-sm">
                   <div className="flex items-center gap-2"><PlayCircle className="h-4 w-4 text-primary" /><span><span className="font-semibold text-foreground">2 weeks</span> · Live + Recorded</span></div>
                   <div className="flex items-center gap-2"><Users className="h-4 w-4 text-primary" /><span>Cohort + community</span></div>
-                  <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /><span>SEBI RA INH000017879</span></div>
+                  <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /><span>Mentored by quant experts</span></div>
                 </div>
               </div>
               <div className="rounded-xl border border-border/60 bg-background/40 p-6 flex flex-col gap-4">
@@ -761,11 +761,11 @@ const Index = () => {
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Compliance-first. <span className="text-gradient">Research-led.</span></h2>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              Vrddhi Capital is a SEBI-registered Research Analyst (Reg. No. <span className="font-mono text-foreground">INH000017879</span>). Every strategy we publish is backed by quantitative research, peer review, and a strict compliance framework.
+              Proption Fintech is a quant-led research and education firm. Our research is backed by <span className="font-mono text-foreground">CA Prachi Mehta</span>, a SEBI Registered Research Analyst (Reg. No. <span className="font-mono text-foreground">INH000017879</span>). Proption Fintech itself is not a SEBI-registered entity. Every strategy we publish is backed by quantitative research, peer review, and a strict compliance framework.
             </p>
             <ul className="space-y-3">
               {[
-                "SEBI Registered Research Analyst — INH000017879",
+                "Research backed by SEBI RA — CA Prachi Mehta (INH000017879)",
                 "Independent custody via SEBI-registered brokers",
                 "Quarterly audited performance reports",
                 "End-to-end encrypted client portal",
@@ -830,14 +830,14 @@ const Index = () => {
               <div className="h-9 w-9 rounded-lg bg-gradient-primary grid place-items-center">
                 <TrendingUp className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="font-semibold tracking-tight text-lg">Vrddhi<span className="text-primary">.</span>Capital</span>
+              <span className="font-semibold tracking-tight text-lg">Proption<span className="text-primary"> </span>Fintech</span>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              SEBI Registered Research Analyst · INH000017879. Research-first fintech delivering institutional-grade strategies and a market education academy.
+              Quant-led research and education firm. Research backed by SEBI Registered RA CA Prachi Mehta (INH000017879). Proption Fintech is not a SEBI-registered entity.
             </p>
             <div className="mt-5 space-y-2 text-muted-foreground">
               <div className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" /><span>Mumbai, Maharashtra, India</span></div>
-              <div className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-primary shrink-0" /><a href="mailto:support@vrddhicapital.in" className="hover:text-foreground">support@vrddhicapital.in</a></div>
+              <div className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-primary shrink-0" /><a href="mailto:support@proptionfintech.in" className="hover:text-foreground">support@proptionfintech.in</a></div>
               <div className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-primary shrink-0" /><a href="tel:+918000000000" className="hover:text-foreground">+91 80000 00000</a></div>
             </div>
           </div>
@@ -878,14 +878,14 @@ const Index = () => {
 
         <div className="container mt-10 pt-6 border-t border-border/60 space-y-4">
           <p className="text-xs text-muted-foreground leading-relaxed">
-            <span className="font-semibold text-foreground">Investor Grievance:</span> In case of any grievance, please write to <a href="mailto:grievance@vrddhicapital.in" className="text-primary hover:underline">grievance@vrddhicapital.in</a>. If not resolved within 30 days, escalate to SEBI via the SCORES portal at <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">scores.sebi.gov.in</a> or use the Online Dispute Resolution (ODR) portal at <a href="https://smartodr.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">smartodr.in</a>.
+            <span className="font-semibold text-foreground">Investor Grievance:</span> In case of any grievance, please write to <a href="mailto:grievance@proptionfintech.in" className="text-primary hover:underline">grievance@proptionfintech.in</a>. For research-related grievances pertaining to the SEBI Registered Research Analyst, you may also escalate to SEBI via the SCORES portal at <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">scores.sebi.gov.in</a> or use the Online Dispute Resolution (ODR) portal at <a href="https://smartodr.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">smartodr.in</a>.
           </p>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            <span className="font-semibold text-foreground">Standard Disclaimer:</span> Registration granted by SEBI, membership of BASL, and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors. Investments in securities markets are subject to market risks. Read all related documents carefully before investing. Past performance is not indicative of future results.
+            <span className="font-semibold text-foreground">Standard Disclaimer:</span> Proption Fintech is not a SEBI-registered entity. Research published is backed by CA Prachi Mehta, SEBI Registered Research Analyst (Reg. No. INH000017879). Registration granted by SEBI, membership of BASL, and certification from NISM in no way guarantee performance or provide any assurance of returns to investors. Investments in securities markets are subject to market risks. Read all related documents carefully before investing. Past performance is not indicative of future results.
           </p>
           <div className="flex flex-wrap justify-between gap-3 text-xs text-muted-foreground pt-2 border-t border-border/60">
-            <span>© 2026 Vrddhi Capital Pvt. Ltd. All rights reserved.</span>
-            <span>SEBI RA Reg. No. <span className="font-mono text-foreground">INH000017879</span> · BASL ID: <span className="font-mono text-foreground">2089</span> · GST: <span className="font-mono text-foreground">27AABCV1234A1Z5</span></span>
+            <span>© 2026 Proption Fintech. All rights reserved.</span>
+            <span>Research by SEBI RA CA Prachi Mehta · Reg. No. <span className="font-mono text-foreground">INH000017879</span></span>
           </div>
         </div>
       </footer>
