@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import {
   ArrowRight, ShieldCheck, TrendingUp, BookOpen, BarChart3, Award,
   CheckCircle2, LineChart as LineIcon, Users, Target, Sparkles, PlayCircle,
-  Bot, Calculator, ShieldAlert, Sun, Wallet, UserCheck, AlertTriangle,
+  Bot, Calculator, ShieldAlert, Sun, Wallet, UserCheck, AlertTriangle, MapPin, Mail, Phone,
 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
@@ -823,35 +823,70 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/60 py-12">
-        <div className="container grid md:grid-cols-4 gap-8 text-sm">
-          <div className="md:col-span-2">
+      <footer className="border-t border-border/60 py-14">
+        <div className="container grid md:grid-cols-4 gap-10 text-sm">
+          <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <div className="h-9 w-9 rounded-lg bg-gradient-primary grid place-items-center">
                 <TrendingUp className="h-5 w-5 text-primary-foreground" />
               </div>
               <span className="font-semibold tracking-tight text-lg">Vrddhi<span className="text-primary">.</span>Capital</span>
             </div>
-            <p className="text-muted-foreground max-w-md">
-              SEBI Registered Research Analyst · INH000017879. Investments in securities markets are subject to market risks. Read all related documents carefully before investing.
+            <p className="text-muted-foreground leading-relaxed">
+              SEBI Registered Research Analyst · INH000017879. Research-first fintech delivering institutional-grade strategies and a market education academy.
             </p>
+            <div className="mt-5 space-y-2 text-muted-foreground">
+              <div className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" /><span>Mumbai, Maharashtra, India</span></div>
+              <div className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-primary shrink-0" /><a href="mailto:support@vrddhicapital.in" className="hover:text-foreground">support@vrddhicapital.in</a></div>
+              <div className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-primary shrink-0" /><a href="tel:+918000000000" className="hover:text-foreground">+91 80000 00000</a></div>
+            </div>
           </div>
+
           <div>
             <div className="font-semibold mb-3">Company</div>
             <ul className="space-y-2 text-muted-foreground">
-              <li>About</li><li>Performance</li><li>Disclosures</li><li>Contact</li>
+              <li><a href="#about" className="hover:text-foreground">About Us</a></li>
+              <li><a href="#performance" className="hover:text-foreground">Performance</a></li>
+              <li><a href="#services" className="hover:text-foreground">PMS Strategies</a></li>
+              <li><a href="#academy" className="hover:text-foreground">Academy</a></li>
+              <li><a href="https://forms.gle/chUXyDfLjCkWWvTH8" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Contact</a></li>
             </ul>
           </div>
+
+          <div>
+            <div className="font-semibold mb-3">Disclosures</div>
+            <ul className="space-y-2 text-muted-foreground">
+              <li><a href="#" className="hover:text-foreground">Investor Charter</a></li>
+              <li><a href="#" className="hover:text-foreground">Standard Risk Disclosure</a></li>
+              <li><a href="#" className="hover:text-foreground">Code of Conduct</a></li>
+              <li><a href="#" className="hover:text-foreground">Conflict of Interest Policy</a></li>
+              <li><a href="#" className="hover:text-foreground">Complaints Status</a></li>
+            </ul>
+          </div>
+
           <div>
             <div className="font-semibold mb-3">Legal</div>
             <ul className="space-y-2 text-muted-foreground">
-              <li>Terms</li><li>Privacy</li><li>SEBI Disclosure</li><li>Grievance Redressal</li>
+              <li><a href="#" className="hover:text-foreground">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-foreground">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-foreground">SEBI Disclosure</a></li>
+              <li><a href="#" className="hover:text-foreground">Grievance Redressal</a></li>
+              <li><a href="#" className="hover:text-foreground">Refund Policy</a></li>
             </ul>
           </div>
         </div>
-        <div className="container mt-10 pt-6 border-t border-border/60 text-xs text-muted-foreground flex flex-wrap justify-between gap-3">
-          <span>© 2026 Vrddhi Capital. All rights reserved.</span>
-          <span className="font-mono">INH000017879</span>
+
+        <div className="container mt-10 pt-6 border-t border-border/60 space-y-4">
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            <span className="font-semibold text-foreground">Investor Grievance:</span> In case of any grievance, please write to <a href="mailto:grievance@vrddhicapital.in" className="text-primary hover:underline">grievance@vrddhicapital.in</a>. If not resolved within 30 days, escalate to SEBI via the SCORES portal at <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">scores.sebi.gov.in</a> or use the Online Dispute Resolution (ODR) portal at <a href="https://smartodr.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">smartodr.in</a>.
+          </p>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            <span className="font-semibold text-foreground">Standard Disclaimer:</span> Registration granted by SEBI, membership of BASL, and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors. Investments in securities markets are subject to market risks. Read all related documents carefully before investing. Past performance is not indicative of future results.
+          </p>
+          <div className="flex flex-wrap justify-between gap-3 text-xs text-muted-foreground pt-2 border-t border-border/60">
+            <span>© 2026 Vrddhi Capital Pvt. Ltd. All rights reserved.</span>
+            <span>SEBI RA Reg. No. <span className="font-mono text-foreground">INH000017879</span> · BASL ID: <span className="font-mono text-foreground">2089</span> · GST: <span className="font-mono text-foreground">27AABCV1234A1Z5</span></span>
+          </div>
         </div>
       </footer>
     </div>
