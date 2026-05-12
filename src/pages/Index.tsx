@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import {
   ArrowRight, ShieldCheck, TrendingUp, BookOpen, BarChart3, Award,
   CheckCircle2, LineChart as LineIcon, Users, Target, Sparkles, PlayCircle,
-  Bot, Calculator, ShieldAlert, Sun, Wallet, UserCheck, AlertTriangle,
+  Bot, Calculator, ShieldAlert, Sun, Wallet, UserCheck, AlertTriangle, MapPin, Mail, Phone,
 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
