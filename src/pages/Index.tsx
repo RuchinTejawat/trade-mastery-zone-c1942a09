@@ -779,15 +779,15 @@ const Index = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[
-              { icon: Users, k: "340+", v: "Active Investors" },
-              { icon: Sparkles, k: "5+ yrs", v: "Combined Research" },
-              { icon: ShieldCheck, k: "100%", v: "SEBI Compliant" },
-              { icon: TrendingUp, k: "78%", v: "Win Rate" },
+              { icon: ShieldCheck, k: "Broker-Held", v: "Funds stay in your own demat — we never custody capital." },
+              { icon: Sparkles, k: "Quant-First", v: "Every strategy backtested across multi-cycle market regimes." },
+              { icon: TrendingUp, k: "Verified P&L", v: "Live performance audited via Zerodha Verified Returns." },
+              { icon: Users, k: "Transparent", v: "Full disclosure of risk, drawdown and methodology — no black boxes." },
             ].map(b => (
-              <Card key={b.v} className="bg-gradient-card border-border/60 p-6">
+              <Card key={b.k} className="bg-gradient-card border-border/60 p-6">
                 <b.icon className="h-6 w-6 text-primary mb-4" />
-                <div className="text-3xl font-bold font-mono text-gradient">{b.k}</div>
-                <div className="text-sm text-muted-foreground mt-1">{b.v}</div>
+                <div className="text-2xl font-bold text-gradient">{b.k}</div>
+                <div className="text-sm text-muted-foreground mt-2 leading-relaxed">{b.v}</div>
               </Card>
             ))}
           </div>
