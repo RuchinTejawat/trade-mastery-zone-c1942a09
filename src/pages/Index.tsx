@@ -187,7 +187,7 @@ const Index = () => {
         <div className="container relative grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-up">
             <Badge variant="outline" className="mb-6 border-primary/40 text-primary bg-primary/10 px-3 py-1.5">
-              <ShieldCheck className="h-3.5 w-3.5 mr-1.5" /> Research backed by SEBI RA · CA Prachi Mehta (INH000017879)
+              <ShieldCheck className="h-3.5 w-3.5 mr-1.5" /> Quant-led research & market education
             </Badge>
             <h1 className="text-5xl md:text-7xl font-bold leading-[1.05] tracking-tight">
               Compound your <span className="text-gradient">capital.</span><br/>
@@ -357,7 +357,7 @@ const Index = () => {
                     <div className="flex flex-wrap gap-6 mt-6 text-sm">
                       <div className="flex items-center gap-2"><BarChart3 className="h-4 w-4 text-primary" /><span><span className="font-semibold text-foreground">NIFTY 50</span> + BSE SENSEX</span></div>
                       <div className="flex items-center gap-2"><Sun className="h-4 w-4 text-primary" /><span>Pure Intraday · No overnight risk</span></div>
-                      <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /><span>Research by SEBI RA — CA Prachi Mehta</span></div>
+                      <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /><span>Research-backed quant strategy</span></div>
                     </div>
                   </div>
                   <div className="rounded-xl border border-border/60 bg-background/40 p-6 flex flex-col gap-4">
@@ -761,11 +761,11 @@ const Index = () => {
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Compliance-first. <span className="text-gradient">Research-led.</span></h2>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              Proption Fintech is a quant-led research and education firm. Our research is backed by <span className="font-mono text-foreground">CA Prachi Mehta</span>, a SEBI Registered Research Analyst (Reg. No. <span className="font-mono text-foreground">INH000017879</span>). Proption Fintech itself is not a SEBI-registered entity. Every strategy we publish is backed by quantitative research, peer review, and a strict compliance framework.
+              Proption Fintech is a quant-led research and education firm. Every strategy we publish is backed by quantitative research, peer review, and a strict compliance framework. See full regulatory disclosure in the footer below.
             </p>
             <ul className="space-y-3">
               {[
-                "Research backed by SEBI RA — CA Prachi Mehta (INH000017879)",
+                "Backed by an independent SEBI Registered Research Analyst",
                 "Independent custody via SEBI-registered brokers",
                 "Quarterly audited performance reports",
                 "End-to-end encrypted client portal",
@@ -833,7 +833,7 @@ const Index = () => {
               <span className="font-semibold tracking-tight text-lg">Proption<span className="text-primary"> </span>Fintech</span>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              Quant-led research and education firm. Research backed by SEBI Registered RA CA Prachi Mehta (INH000017879). Proption Fintech is not a SEBI-registered entity.
+              Quant-led research and education firm. See regulatory disclosure below.
             </p>
             <div className="mt-5 space-y-2 text-muted-foreground">
               <div className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" /><span>Mumbai, Maharashtra, India</span></div>
