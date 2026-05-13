@@ -880,12 +880,18 @@ const Index = () => {
           <p className="text-xs text-muted-foreground leading-relaxed">
             <span className="font-semibold text-foreground">Investor Grievance:</span> In case of any grievance, please write to <a href="mailto:grievance@proptionfintech.in" className="text-primary hover:underline">grievance@proptionfintech.in</a>. For research-related grievances pertaining to the SEBI Registered Research Analyst, you may also escalate to SEBI via the SCORES portal at <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">scores.sebi.gov.in</a> or use the Online Dispute Resolution (ODR) portal at <a href="https://smartodr.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">smartodr.in</a>.
           </p>
+          <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 text-xs text-muted-foreground leading-relaxed">
+            <p className="font-semibold text-foreground mb-2">Regulatory Disclosure</p>
+            <p>
+              <span className="text-foreground font-medium">Proption Fintech is NOT a SEBI-registered entity.</span> All research published on this platform is independently authored and backed by <span className="text-foreground font-medium">CA Prachi Mehta</span>, a SEBI Registered Research Analyst (Reg. No. <span className="font-mono text-foreground">INH000017879</span>). Proption Fintech operates as a quant-led research and education firm and does not provide investment advisory services.
+            </p>
+          </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            <span className="font-semibold text-foreground">Standard Disclaimer:</span> Proption Fintech is not a SEBI-registered entity. Research published is backed by CA Prachi Mehta, SEBI Registered Research Analyst (Reg. No. INH000017879). Registration granted by SEBI, membership of BASL, and certification from NISM in no way guarantee performance or provide any assurance of returns to investors. Investments in securities markets are subject to market risks. Read all related documents carefully before investing. Past performance is not indicative of future results.
+            <span className="font-semibold text-foreground">Standard Disclaimer:</span> Registration granted by SEBI, membership of BASL, and certification from NISM in no way guarantee performance or provide any assurance of returns to investors. Investments in securities markets are subject to market risks. Read all related documents carefully before investing. Past performance is not indicative of future results.
           </p>
           <div className="flex flex-wrap justify-between gap-3 text-xs text-muted-foreground pt-2 border-t border-border/60">
             <span>© 2026 Proption Fintech. All rights reserved.</span>
-            <span>Research by SEBI RA CA Prachi Mehta · Reg. No. <span className="font-mono text-foreground">INH000017879</span></span>
+            <span>Made in India 🇮🇳</span>
           </div>
         </div>
       </footer>
