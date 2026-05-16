@@ -1,9 +1,36 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 
 const RegulatoryDisclosure = () => {
+  const url = "https://trade-mastery-zone.lovable.app/regulatory-disclosure";
+  const title = "Regulatory Disclosure — Proption Fintech & SEBI RA CA Prachi Mehta";
+  const description =
+    "Proption Fintech is NOT SEBI-registered. Research on this platform is independently authored by CA Prachi Mehta, SEBI Registered Research Analyst (INH000017879).";
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={url} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: title,
+          description,
+          url,
+          publisher: { "@type": "Organization", name: "Proption Fintech" },
+        })}</script>
+      </Helmet>
+
       <header className="border-b border-border/60">
         <div className="container py-6 flex items-center justify-between">
           <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
