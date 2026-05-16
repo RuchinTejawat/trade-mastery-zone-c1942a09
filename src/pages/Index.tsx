@@ -869,7 +869,7 @@ const Index = () => {
             <ul className="space-y-2 text-muted-foreground">
               <li><a href="#" className="hover:text-foreground">Terms of Service</a></li>
               <li><a href="#" className="hover:text-foreground">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-foreground">SEBI Disclosure</a></li>
+              <li><a href="/regulatory-disclosure" className="hover:text-foreground">SEBI Disclosure</a></li>
               <li><a href="#" className="hover:text-foreground">Grievance Redressal</a></li>
               <li><a href="#" className="hover:text-foreground">Refund Policy</a></li>
             </ul>
@@ -883,7 +883,7 @@ const Index = () => {
           <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 text-xs text-muted-foreground leading-relaxed">
             <p className="font-semibold text-foreground mb-2">Regulatory Disclosure</p>
             <p>
-              <span className="text-foreground font-medium">Proption Fintech is NOT a SEBI-registered entity.</span> All research published on this platform is independently authored and backed by <span className="text-foreground font-medium">CA Prachi Mehta</span>, a SEBI Registered Research Analyst (Reg. No. <span className="font-mono text-foreground">INH000017879</span>). Proption Fintech operates as a quant-led research and education firm and does not provide investment advisory services.
+              <span className="text-foreground font-medium">Proption Fintech is NOT a SEBI-registered entity.</span> Research on this platform is independently authored and backed by a SEBI Registered Research Analyst. <a href="/regulatory-disclosure" className="text-primary hover:underline font-medium">Read the full regulatory disclosure →</a>
             </p>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
