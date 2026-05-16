@@ -849,7 +849,7 @@ const Index = () => {
               <li><a href="#performance" className="hover:text-foreground">Performance</a></li>
               <li><a href="#services" className="hover:text-foreground">PMS Strategies</a></li>
               <li><a href="#academy" className="hover:text-foreground">Academy</a></li>
-              <li><a href="https://forms.gle/chUXyDfLjCkWWvTH8" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Contact</a></li>
+              <li><a href="/contact" className="hover:text-foreground">Contact</a></li>
             </ul>
           </div>
 
