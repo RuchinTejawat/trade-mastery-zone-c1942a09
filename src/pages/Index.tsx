@@ -836,9 +836,9 @@ const Index = () => {
               Quant-led research and education firm. See regulatory disclosure below.
             </p>
             <div className="mt-5 space-y-2 text-muted-foreground">
-              <div className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" /><span>Mumbai, Maharashtra, India</span></div>
-              <div className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-primary shrink-0" /><a href="mailto:support@proptionfintech.in" className="hover:text-foreground">support@proptionfintech.in</a></div>
-              <div className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-primary shrink-0" /><a href="tel:+918000000000" className="hover:text-foreground">+91 80000 00000</a></div>
+              <div className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" /><span>803, Classic Tower, Navratan Complex, Udaipur, Rajasthan</span></div>
+              <div className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-primary shrink-0" /><a href="mailto:proptionfintech@gmail.com" className="hover:text-foreground">proptionfintech@gmail.com</a></div>
+              <div className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-primary shrink-0" /><a href="tel:+919321474231" className="hover:text-foreground">+91 93214 74231</a></div>
             </div>
           </div>
 
@@ -878,7 +878,7 @@ const Index = () => {
 
         <div className="container mt-10 pt-6 border-t border-border/60 space-y-4">
           <p className="text-xs text-muted-foreground leading-relaxed">
-            <span className="font-semibold text-foreground">Investor Grievance:</span> In case of any grievance, please write to <a href="mailto:grievance@proptionfintech.in" className="text-primary hover:underline">grievance@proptionfintech.in</a>. For research-related grievances pertaining to the SEBI Registered Research Analyst, you may also escalate to SEBI via the SCORES portal at <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">scores.sebi.gov.in</a> or use the Online Dispute Resolution (ODR) portal at <a href="https://smartodr.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">smartodr.in</a>.
+            <span className="font-semibold text-foreground">Investor Grievance:</span> In case of any grievance, please write to <a href="mailto:proptionfintech@gmail.com" className="text-primary hover:underline">proptionfintech@gmail.com</a>. For research-related grievances pertaining to the SEBI Registered Research Analyst, you may also escalate to SEBI via the SCORES portal at <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">scores.sebi.gov.in</a> or use the Online Dispute Resolution (ODR) portal at <a href="https://smartodr.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">smartodr.in</a>.
           </p>
           <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 text-xs text-muted-foreground leading-relaxed">
             <p className="font-semibold text-foreground mb-2">Regulatory Disclosure</p>
