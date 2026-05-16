@@ -99,8 +99,8 @@ const RegulatoryDisclosure = () => {
             <h2 className="text-xl font-semibold mb-3">Investor Grievance</h2>
             <p className="text-muted-foreground">
               For any grievance, please write to{" "}
-              <a href="mailto:grievance@proptionfintech.in" className="text-primary hover:underline">
-                grievance@proptionfintech.in
+              <a href="mailto:proptionfintech@gmail.com" className="text-primary hover:underline">
+                proptionfintech@gmail.com
               </a>
               . For research-related grievances pertaining to the SEBI Registered
               Research Analyst, you may also escalate to SEBI via the SCORES portal at{" "}
