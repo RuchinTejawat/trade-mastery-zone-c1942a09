@@ -755,40 +755,81 @@ const Index = () => {
 
       {/* Trust / About */}
       <section id="about" className="py-24 bg-card/20 border-y border-border/60">
-        <div className="container grid lg:grid-cols-2 gap-16 items-center">
-          <div>
+        <div className="container">
+          <div className="max-w-2xl mb-14">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/5">
-              <Award className="h-3.5 w-3.5 mr-1.5" /> Regulated & Trusted
+              <Users className="h-3.5 w-3.5 mr-1.5" /> About Us
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Compliance-first. <span className="text-gradient">Research-led.</span></h2>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              Proption Fintech is a quant-led research and education firm. Every strategy we publish is backed by quantitative research, peer review, and a strict compliance framework. See full regulatory disclosure in the footer below.
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Meet the <span className="text-gradient">Team</span></h2>
+            <p className="text-muted-foreground leading-relaxed">
+              A diverse team of engineers, analysts, and researchers building quantitative systems for the Indian markets.
             </p>
-            <ul className="space-y-3">
-              {[
-                "Backed by an independent SEBI Registered Research Analyst",
-                "Independent custody via SEBI-registered brokers",
-                "Quarterly audited performance reports",
-                "End-to-end encrypted client portal",
-              ].map(t => (
-                <li key={t} className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground/90">{t}</span>
-                </li>
-              ))}
-            </ul>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: ShieldCheck, k: "Broker-Held", v: "Funds stay in your own demat — we never custody capital." },
-              { icon: Sparkles, k: "Quant-First", v: "Every strategy backtested across multi-cycle market regimes." },
-              { icon: TrendingUp, k: "Verified P&L", v: "Live performance audited via Zerodha Verified Returns." },
-              { icon: Users, k: "Transparent", v: "Full disclosure of risk, drawdown and methodology — no black boxes." },
-            ].map(b => (
-              <Card key={b.k} className="bg-gradient-card border-border/60 p-6">
-                <b.icon className="h-6 w-6 text-primary mb-4" />
-                <div className="text-2xl font-bold text-gradient">{b.k}</div>
-                <div className="text-sm text-muted-foreground mt-2 leading-relaxed">{b.v}</div>
+              {
+                name: "Kishore Kumar",
+                exp: "15+ years",
+                title: "Senior Software Engineer | Trading Systems & Infrastructure",
+                highlights: ["Ex — Wipro / Honeywell", "Deep experience with broker APIs", "Designed distributed algo execution", "Strong DevOps exposure"],
+                icon: Code,
+              },
+              {
+                name: "CA Prachi Mehta",
+                exp: "8+ years",
+                title: "Chartered Accountant | SEBI Registered Research Analyst",
+                highlights: ["SEBI RA — INH000017879", "Ex. Hedge Fund Admin (Citco, Morgan Stanley)", "Expertise in Cash Market Portfolios", "Designing Swing & Long-Term Investing Systems"],
+                icon: Award,
+              },
+              {
+                name: "Ruchin Tejawat",
+                exp: "12+ years",
+                title: "Real-Time Trading Strategist | Quant Research",
+                highlights: ["Alumnus — IIT Kanpur", "Research Associate — IIM Udaipur", "Statistical Designing of Options Trading Systems", "Managing Different Risk Profiles"],
+                icon: TrendingUp,
+              },
+              {
+                name: "Aviroop",
+                exp: "2 years",
+                title: "Developer | Front End & Backend",
+                highlights: ["MongoDB, Express, Redis, Node.js", "Experience in AI/ML Projects"],
+                icon: Briefcase,
+              },
+              {
+                name: "SoumyaDeep",
+                exp: "2 years",
+                title: "Developer | Front End & Backend",
+                highlights: ["MongoDB, Express, Redis, Node.js"],
+                icon: Briefcase,
+              },
+              {
+                name: "Anurag",
+                exp: "4–5 years",
+                title: "Developer | Front End & Backend",
+                highlights: ["MongoDB, Express, Redis, Node.js"],
+                icon: Briefcase,
+              },
+            ].map((member) => (
+              <Card key={member.name} className="bg-gradient-card border-border/60 p-6 flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-10 w-10 rounded-lg bg-primary/10 grid place-items-center">
+                    <member.icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold leading-tight">{member.name}</h3>
+                    <p className="text-xs text-muted-foreground">{member.exp} of experience</p>
+                  </div>
+                </div>
+                <p className="text-sm font-medium text-foreground/90 mb-3">{member.title}</p>
+                <ul className="space-y-2 mt-auto">
+                  {member.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
               </Card>
             ))}
           </div>
