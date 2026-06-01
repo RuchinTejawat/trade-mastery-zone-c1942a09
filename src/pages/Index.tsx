@@ -3,14 +3,14 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import {
-  ArrowRight, ShieldCheck, TrendingUp, BookOpen, BarChart3, Award,
-  CheckCircle2, LineChart as LineIcon, Users, Target, Sparkles, PlayCircle,
+  ArrowRight, ShieldCheck, TrendingUp, BookOpen, BarChart3,
+  CheckCircle2, LineChart as LineIcon, Target, Sparkles, PlayCircle,
   Bot, Calculator, ShieldAlert, Sun, Wallet, UserCheck, AlertTriangle, MapPin, Mail, Phone,
-  Briefcase, GraduationCap, Code,
 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
 } from "recharts";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import heroImg from "@/assets/hero-finance.jpg";
@@ -887,7 +887,7 @@ const Index = () => {
           <div>
             <div className="font-semibold mb-3">Company</div>
             <ul className="space-y-2 text-muted-foreground">
-              <li><a href="#about" className="hover:text-foreground">About Us</a></li>
+              <li><Link to="/about" className="hover:text-foreground">About Us</Link></li>
               <li><a href="#performance" className="hover:text-foreground">Performance</a></li>
               <li><a href="#services" className="hover:text-foreground">PMS Strategies</a></li>
               <li><a href="#academy" className="hover:text-foreground">Academy</a></li>
