@@ -3,14 +3,14 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import {
-  ArrowRight, ShieldCheck, TrendingUp, BookOpen, BarChart3, Award,
-  CheckCircle2, LineChart as LineIcon, Users, Target, Sparkles, PlayCircle,
+  ArrowRight, ShieldCheck, TrendingUp, BookOpen, BarChart3, Users,
+  CheckCircle2, LineChart as LineIcon, Target, Sparkles, PlayCircle,
   Bot, Calculator, ShieldAlert, Sun, Wallet, UserCheck, AlertTriangle, MapPin, Mail, Phone,
-  Briefcase, GraduationCap, Code,
 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
 } from "recharts";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import heroImg from "@/assets/hero-finance.jpg";
@@ -171,7 +171,7 @@ const Index = () => {
             <a href="#performance" className="hover:text-foreground transition-colors">Performance</a>
             <a href="#services" className="hover:text-foreground transition-colors">PMS</a>
             <a href="#courses" className="hover:text-foreground transition-colors">Academy</a>
-            <a href="#about" className="hover:text-foreground transition-colors">About</a>
+            <Link to="/about" className="hover:text-foreground transition-colors">About</Link>
           </nav>
           <Button asChild variant="default" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow">
             <a href="https://forms.gle/chUXyDfLjCkWWvTH8" target="_blank" rel="noopener noreferrer">
@@ -753,88 +753,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Trust / About */}
-      <section id="about" className="py-24 bg-card/20 border-y border-border/60">
-        <div className="container">
-          <div className="max-w-2xl mb-14">
-            <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/5">
-              <Users className="h-3.5 w-3.5 mr-1.5" /> About Us
-            </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Meet the <span className="text-gradient">Team</span></h2>
-            <p className="text-muted-foreground leading-relaxed">
-              A diverse team of engineers, analysts, and researchers building quantitative systems for the Indian markets.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                name: "Kishore Kumar",
-                exp: "15+ years",
-                title: "Senior Software Engineer | Trading Systems & Infrastructure",
-                highlights: ["Ex — Wipro / Honeywell", "Deep experience with broker APIs", "Designed distributed algo execution", "Strong DevOps exposure"],
-                icon: Code,
-              },
-              {
-                name: "CA Prachi Mehta",
-                exp: "8+ years",
-                title: "Chartered Accountant | SEBI Registered Research Analyst",
-                highlights: ["SEBI RA — INH000017879", "Ex. Hedge Fund Admin (Citco, Morgan Stanley)", "Expertise in Cash Market Portfolios", "Designing Swing & Long-Term Investing Systems"],
-                icon: Award,
-              },
-              {
-                name: "Ruchin Tejawat",
-                exp: "12+ years",
-                title: "Real-Time Trading Strategist | Quant Research",
-                highlights: ["Alumnus — IIT Kanpur", "Research Associate — IIM Udaipur", "Statistical Designing of Options Trading Systems", "Managing Different Risk Profiles"],
-                icon: TrendingUp,
-              },
-              {
-                name: "Aviroop",
-                exp: "2 years",
-                title: "Developer | Front End & Backend",
-                highlights: ["MongoDB, Express, Redis, Node.js", "Experience in AI/ML Projects"],
-                icon: Briefcase,
-              },
-              {
-                name: "SoumyaDeep",
-                exp: "2 years",
-                title: "Developer | Front End & Backend",
-                highlights: ["MongoDB, Express, Redis, Node.js"],
-                icon: Briefcase,
-              },
-              {
-                name: "Anurag",
-                exp: "4–5 years",
-                title: "Developer | Front End & Backend",
-                highlights: ["MongoDB, Express, Redis, Node.js"],
-                icon: Briefcase,
-              },
-            ].map((member) => (
-              <Card key={member.name} className="bg-gradient-card border-border/60 p-6 flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="h-10 w-10 rounded-lg bg-primary/10 grid place-items-center">
-                    <member.icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold leading-tight">{member.name}</h3>
-                    <p className="text-xs text-muted-foreground">{member.exp} of experience</p>
-                  </div>
-                </div>
-                <p className="text-sm font-medium text-foreground/90 mb-3">{member.title}</p>
-                <ul className="space-y-2 mt-auto">
-                  {member.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                      <span>{h}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="py-24">
@@ -887,7 +805,7 @@ const Index = () => {
           <div>
             <div className="font-semibold mb-3">Company</div>
             <ul className="space-y-2 text-muted-foreground">
-              <li><a href="#about" className="hover:text-foreground">About Us</a></li>
+              <li><Link to="/about" className="hover:text-foreground">About Us</Link></li>
               <li><a href="#performance" className="hover:text-foreground">Performance</a></li>
               <li><a href="#services" className="hover:text-foreground">PMS Strategies</a></li>
               <li><a href="#academy" className="hover:text-foreground">Academy</a></li>
