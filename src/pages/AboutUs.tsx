@@ -17,6 +17,7 @@ const team = [
     name: "Kishore Kumar",
     exp: "15+ years",
     title: "Senior Software Engineer | Trading Systems & Infrastructure",
+    bio: "Kishore brings over 15 years of deep hands-on experience in designing, building, and maintaining automated trading infrastructure. Having worked at global technology leaders like Wipro and Honeywell, he specializes in broker API integrations, distributed algorithmic execution engines, and robust DevOps practices that keep mission-critical trading systems running 24/7.",
     highlights: ["Ex — Wipro / Honeywell", "Deep experience with broker APIs", "Designed distributed algo execution", "Strong DevOps exposure"],
     icon: Code,
   },
@@ -24,6 +25,7 @@ const team = [
     name: "CA Prachi Mehta",
     exp: "8+ years",
     title: "Chartered Accountant | SEBI Registered Research Analyst",
+    bio: "A Chartered Accountant and SEBI Registered Research Analyst (INH000017879), Prachi has spent over 8 years at the intersection of finance, compliance, and fund administration. Her prior roles at Citco and Morgan Stanley gave her an insider's view into hedge fund operations, cash-market portfolio construction, and the design of disciplined swing and long-term investing frameworks.",
     highlights: ["SEBI RA — INH000017879", "Ex. Hedge Fund Admin (Citco, Morgan Stanley)", "Expertise in Cash Market Portfolios", "Designing Swing & Long-Term Investing Systems"],
     icon: Award,
   },
@@ -31,6 +33,7 @@ const team = [
     name: "Ruchin Tejawat",
     exp: "12+ years",
     title: "Real-Time Trading Strategist | Quant Research",
+    bio: "An IIT Kanpur alumnus and Research Associate at IIM Udaipur, Ruchin combines academic rigor with 12+ years of live-market experience. His expertise lies in the statistical design of options trading systems, dynamic risk profiling, and translating quantitative research into profitable, real-time execution strategies.",
     highlights: ["Alumnus — IIT Kanpur", "Research Associate — IIM Udaipur", "Statistical Designing of Options Trading Systems", "Managing Different Risk Profiles"],
     icon: TrendingUp,
   },
@@ -38,6 +41,7 @@ const team = [
     name: "Aviroop",
     exp: "2 years",
     title: "Developer | Front End & Backend",
+    bio: "Aviroop is a full-stack developer with hands-on experience across the MERN stack (MongoDB, Express, Redis, Node.js). He is passionate about building clean, responsive user interfaces and scalable backend services, and has contributed to AI/ML projects that enhance trading analytics.",
     highlights: ["MongoDB, Express, Redis, Node.js", "Experience in AI/ML Projects"],
     icon: Briefcase,
   },
@@ -45,6 +49,7 @@ const team = [
     name: "SoumyaDeep",
     exp: "2 years",
     title: "Developer | Front End & Backend",
+    bio: "SoumyaDeep is a versatile full-stack developer skilled in building end-to-end web applications using MongoDB, Express, Redis, and Node.js. He focuses on delivering performant, reliable systems that power the front-end experience and backend operations alike.",
     highlights: ["MongoDB, Express, Redis, Node.js"],
     icon: Briefcase,
   },
@@ -52,12 +57,14 @@ const team = [
     name: "Anurag",
     exp: "4–5 years",
     title: "Developer | Front End & Backend",
+    bio: "With 4–5 years of engineering experience, Anurag is a full-stack developer proficient in the MERN ecosystem. He architects and maintains the server-side logic, database schemas, and API layers that keep Proption's platforms fast, secure, and scalable.",
     highlights: ["MongoDB, Express, Redis, Node.js"],
     icon: Briefcase,
   },
 ];
 
 const AboutUs = () => {
+  const [selectedMember, setSelectedMember] = useState<typeof team[0] | null>(null);
   const url = "https://trade-mastery-zone.lovable.app/about";
   const title = "About Us — Proption Fintech";
   const description =
