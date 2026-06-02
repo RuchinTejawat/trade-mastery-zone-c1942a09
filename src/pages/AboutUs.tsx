@@ -128,14 +128,24 @@ const AboutUs = () => {
                   <p className="text-sm font-medium text-foreground/90 mt-1">{member.title}</p>
                 </div>
               </div>
-              <ul className="flex flex-col gap-2 md:mt-0 mt-2">
-                {member.highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                    <span>{h}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="flex-1 flex flex-col gap-3">
+                <ul className="flex flex-col gap-2">
+                  {member.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="self-start mt-1"
+                  onClick={() => setSelectedMember(member)}
+                >
+                  View profile
+                </Button>
+              </div>
             </Card>
           ))}
         </div>
