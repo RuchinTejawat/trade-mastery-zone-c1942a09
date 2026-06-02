@@ -149,6 +149,39 @@ const AboutUs = () => {
             </Card>
           ))}
         </div>
+
+        <Dialog open={!!selectedMember} onOpenChange={() => setSelectedMember(null)}>
+          {selectedMember && (
+            <DialogContent className="max-w-lg">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-lg bg-primary/10 grid place-items-center">
+                    <selectedMember.icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold">{selectedMember.name}</div>
+                    <div className="text-xs text-muted-foreground font-normal">{selectedMember.title}</div>
+                  </div>
+                </DialogTitle>
+                <DialogDescription className="sr-only">{selectedMember.name} profile</DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground leading-relaxed">{selectedMember.bio}</p>
+                <div>
+                  <h4 className="text-sm font-semibold mb-2">Key Highlights</h4>
+                  <ul className="flex flex-col gap-2">
+                    {selectedMember.highlights.map((h) => (
+                      <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </DialogContent>
+          )}
+        </Dialog>
       </main>
 
       <footer className="border-t border-border/60 mt-auto">
