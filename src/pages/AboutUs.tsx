@@ -99,20 +99,20 @@ const AboutUs = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-6">
           {team.map((member) => (
-            <Card key={member.name} className="bg-gradient-card border-border/60 p-6 flex flex-col">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-lg bg-primary/10 grid place-items-center">
-                  <member.icon className="h-5 w-5 text-primary" />
+            <Card key={member.name} className="bg-gradient-card border-border/60 p-6 flex flex-col md:flex-row md:items-start gap-6">
+              <div className="flex items-center gap-4 md:w-72 shrink-0">
+                <div className="h-12 w-12 rounded-lg bg-primary/10 grid place-items-center shrink-0">
+                  <member.icon className="h-6 w-6 text-primary" />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold leading-tight">{member.name}</h3>
                   <p className="text-xs text-muted-foreground">{member.exp} of experience</p>
+                  <p className="text-sm font-medium text-foreground/90 mt-1">{member.title}</p>
                 </div>
               </div>
-              <p className="text-sm font-medium text-foreground/90 mb-3">{member.title}</p>
-              <ul className="space-y-2 mt-auto">
+              <ul className="flex flex-col gap-2 md:mt-0 mt-2">
                 {member.highlights.map((h) => (
                   <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
                     <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
