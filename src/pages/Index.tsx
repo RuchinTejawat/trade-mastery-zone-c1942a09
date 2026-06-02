@@ -609,6 +609,19 @@ const Index = () => {
                       </div>
                     </div>
 
+                    {/* Book a Call CTA */}
+                    <div className="rounded-xl border border-primary/30 bg-primary/5 p-6 text-center">
+                      <h4 className="text-lg font-semibold mb-2">Interested in our Statistical Quant System?</h4>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        See the verified performance above? Book a one-on-one call with our team to discuss how this strategy can work for your capital.
+                      </p>
+                      <Button asChild className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow px-8">
+                        <a href="https://forms.gle/chUXyDfLjCkWWvTH8" target="_blank" rel="noopener noreferrer">
+                          Book a Call <ArrowRight className="ml-2 h-4 w-4" />
+                        </a>
+                      </Button>
+                    </div>
+
                     {/* Disclaimer */}
                     <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 flex gap-3">
                       <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
