@@ -152,15 +152,17 @@ const AboutUs = () => {
 
         <Dialog open={!!selectedMember} onOpenChange={() => setSelectedMember(null)}>
           {selectedMember && (
-            <DialogContent className="max-w-lg">
-              <DialogHeader>
-                <DialogTitle className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-primary/10 grid place-items-center">
-                    <selectedMember.icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold">{selectedMember.name}</div>
-                    <div className="text-xs text-muted-foreground font-normal">{selectedMember.title}</div>
+            <DialogContent className="max-w-lg w-[calc(100vw-2rem)] max-h-[85vh] overflow-y-auto p-5 sm:p-6">
+              <DialogHeader className="text-left">
+                <DialogTitle asChild>
+                  <div className="flex items-start gap-3 pr-8">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 grid place-items-center shrink-0">
+                      <selectedMember.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-base sm:text-lg font-bold leading-tight">{selectedMember.name}</div>
+                      <div className="text-xs text-muted-foreground font-normal mt-0.5">{selectedMember.title}</div>
+                    </div>
                   </div>
                 </DialogTitle>
                 <DialogDescription className="sr-only">{selectedMember.name} profile</DialogDescription>
