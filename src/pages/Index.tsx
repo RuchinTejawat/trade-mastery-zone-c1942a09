@@ -182,7 +182,7 @@ const Index = () => {
       </header>
 
       {/* Hero */}
-      <section className="relative pt-32 pb-24 overflow-hidden">
+      <section className="relative pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-40" />
         <div className="absolute -top-40 right-0 h-[500px] w-[500px] rounded-full bg-primary/10 blur-3xl animate-pulse-glow" />
         <div className="container relative grid lg:grid-cols-2 gap-12 items-center">
@@ -251,7 +251,7 @@ const Index = () => {
       </section>
 
       {/* Performance chart */}
-      <section id="performance" className="py-24">
+      <section id="performance" className="py-16 md:py-20">
         <div className="container">
           <div className="max-w-2xl mb-12">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/5">
@@ -341,9 +341,9 @@ const Index = () => {
       </section>
 
       {/* Services */}
-      <section id="services" className="py-24 bg-card/20 border-y border-border/60">
+      <section id="services" className="py-16 md:py-20 bg-card/20 border-y border-border/60">
         <div className="container">
-          <div className="max-w-2xl mb-14">
+          <div className="max-w-2xl mb-8 md:mb-14">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/5">PMS Strategies</Badge>
             <h2 className="text-4xl md:text-5xl font-bold">A single, focused <span className="text-gradient">quant strategy.</span></h2>
           </div>
@@ -655,9 +655,9 @@ const Index = () => {
         </section>
 
       {/* Courses */}
-      <section id="courses" className="py-24">
+      <section id="courses" className="py-16 md:py-20">
         <div className="container">
-          <div className="max-w-2xl mb-14">
+          <div className="max-w-2xl mb-8 md:mb-14">
             <Badge variant="outline" className="mb-4 border-accent/40 text-accent bg-accent/5">
               <BookOpen className="h-3.5 w-3.5 mr-1.5" /> Proption Academy
             </Badge>
@@ -768,7 +768,7 @@ const Index = () => {
 
 
       {/* CTA */}
-      <section className="py-24">
+      <section className="py-16 md:py-20">
         <div className="container">
           <Card className="relative overflow-hidden bg-gradient-card border-border/60 p-12 md:p-16 text-center shadow-elegant">
             <div className="absolute inset-0 grid-bg opacity-30" />
