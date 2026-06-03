@@ -786,9 +786,6 @@ const Index = () => {
                     Book Free Consultation <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
-                <Button size="lg" variant="outline" className="h-12 px-8 border-border/60">
-                  Download Factsheet
-                </Button>
               </div>
             </div>
           </Card>
