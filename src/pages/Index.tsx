@@ -756,7 +756,7 @@ const Index = () => {
                     </div>
 
                     <Button asChild className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90">
-                      <a href="https://forms.gle/f83wDqZDcqLfhf6v9" target="_blank" rel="noopener noreferrer">Enroll Now — ₹20,000</a>
+                      <Link to="/checkout">Enroll Now — ₹20,000</Link>
                     </Button>
                   </DialogContent>
                 </Dialog>

@@ -8,6 +8,8 @@ import NotFound from "./pages/NotFound.tsx";
 import RegulatoryDisclosure from "./pages/RegulatoryDisclosure.tsx";
 import ContactUs from "./pages/ContactUs.tsx";
 import AboutUs from "./pages/AboutUs.tsx";
+import Checkout from "./pages/Checkout.tsx";
+import OrderConfirmation from "./pages/OrderConfirmation.tsx";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,8 @@ const App = () => (
           <Route path="/regulatory-disclosure" element={<RegulatoryDisclosure />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order-confirmation" element={<OrderConfirmation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
