@@ -16,7 +16,6 @@ const COURSE = {
 };
 
 const Checkout = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
