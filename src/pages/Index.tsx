@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import heroImg from "@/assets/hero-finance.jpg";
+import { BookCallDialog } from "@/components/BookCallDialog";
 
 type ChartPoint = { m: string; pms: number; nifty: number | null };
 type PerfData = {
@@ -173,11 +174,11 @@ const Index = () => {
             <a href="#courses" className="hover:text-foreground transition-colors">Academy</a>
             <Link to="/about" className="hover:text-foreground transition-colors">About</Link>
           </nav>
-          <Button asChild variant="default" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow">
-            <a href="https://forms.gle/chUXyDfLjCkWWvTH8" target="_blank" rel="noopener noreferrer">
+          <BookCallDialog>
+            <Button variant="default" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow">
               Book a Call <ArrowRight className="ml-1 h-4 w-4" />
-            </a>
-          </Button>
+            </Button>
+          </BookCallDialog>
         </div>
       </header>
 
@@ -615,11 +616,11 @@ const Index = () => {
                       <p className="text-sm text-muted-foreground mb-4">
                         See the verified performance above? Book a one-on-one call with our team to discuss how this strategy can work for your capital.
                       </p>
-                      <Button asChild className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow px-8">
-                        <a href="https://forms.gle/chUXyDfLjCkWWvTH8" target="_blank" rel="noopener noreferrer">
+                      <BookCallDialog>
+                        <Button className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow px-8">
                           Book a Call <ArrowRight className="ml-2 h-4 w-4" />
-                        </a>
-                      </Button>
+                        </Button>
+                      </BookCallDialog>
                     </div>
 
                     {/* Disclaimer */}
@@ -781,11 +782,11 @@ const Index = () => {
                 Schedule a 30-minute consultation with our portfolio managers. No obligations.
               </p>
               <div className="mt-10 flex flex-wrap gap-3 justify-center">
-                <Button asChild size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow h-12 px-8">
-                  <a href="https://forms.gle/chUXyDfLjCkWWvTH8" target="_blank" rel="noopener noreferrer">
+                <BookCallDialog>
+                  <Button size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow h-12 px-8">
                     Book Free Consultation <ArrowRight className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
+                  </Button>
+                </BookCallDialog>
               </div>
             </div>
           </Card>
