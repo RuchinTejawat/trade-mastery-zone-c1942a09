@@ -616,11 +616,11 @@ const Index = () => {
                       <p className="text-sm text-muted-foreground mb-4">
                         See the verified performance above? Book a one-on-one call with our team to discuss how this strategy can work for your capital.
                       </p>
-                      <Button asChild className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow px-8">
-                        <a href="https://forms.gle/chUXyDfLjCkWWvTH8" target="_blank" rel="noopener noreferrer">
+                      <BookCallDialog>
+                        <Button className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow px-8">
                           Book a Call <ArrowRight className="ml-2 h-4 w-4" />
-                        </a>
-                      </Button>
+                        </Button>
+                      </BookCallDialog>
                     </div>
 
                     {/* Disclaimer */}
