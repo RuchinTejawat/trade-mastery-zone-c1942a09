@@ -39,20 +39,9 @@ const Checkout = () => {
     }
     setSubmitting(true);
     setTimeout(() => {
-      const orderId = "PRO-" + Math.random().toString(36).slice(2, 8).toUpperCase();
       setSubmitting(false);
-      navigate("/order-confirmation", {
-        state: {
-          orderId,
-          course: COURSE,
-          buyer: form,
-          amount: total,
-          gst,
-          method: form.method,
-          date: new Date().toISOString(),
-        },
-      });
-    }, 1200);
+      window.location.href = "https://rzp.io/rzp/StatisticalOptionsTrading";
+    }, 800);
   };
 
   return (
