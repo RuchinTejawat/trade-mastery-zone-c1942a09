@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, CreditCard, Lock, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowLeft, CreditCard, Lock, ShieldCheck, CheckCircle2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,7 +16,6 @@ const COURSE = {
 };
 
 const Checkout = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -40,20 +39,9 @@ const Checkout = () => {
     }
     setSubmitting(true);
     setTimeout(() => {
-      const orderId = "PRO-" + Math.random().toString(36).slice(2, 8).toUpperCase();
       setSubmitting(false);
-      navigate("/order-confirmation", {
-        state: {
-          orderId,
-          course: COURSE,
-          buyer: form,
-          amount: total,
-          gst,
-          method: form.method,
-          date: new Date().toISOString(),
-        },
-      });
-    }, 1200);
+      window.location.href = "https://rzp.io/rzp/StatisticalOptionsTrading";
+    }, 800);
   };
 
   return (
