@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import heroImg from "@/assets/hero-finance.jpg";
+import { BookCallDialog } from "@/components/BookCallDialog";
 
 type ChartPoint = { m: string; pms: number; nifty: number | null };
 type PerfData = {
