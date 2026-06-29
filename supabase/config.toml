@@ -2,3 +2,6 @@ project_id = "rkmagdzxnavhtaficiry"
 
 [functions.get-performance]
 verify_jwt = false
+
+[functions.get-options-analysis]
+verify_jwt = false

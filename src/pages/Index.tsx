@@ -172,6 +172,7 @@ const Index = () => {
             <a href="#performance" className="hover:text-foreground transition-colors">Performance</a>
             <a href="#services" className="hover:text-foreground transition-colors">PMS</a>
             <a href="#courses" className="hover:text-foreground transition-colors">Academy</a>
+            <Link to="/options-analysis" className="hover:text-foreground transition-colors">Options Analysis</Link>
             <Link to="/about" className="hover:text-foreground transition-colors">About</Link>
           </nav>
           <BookCallDialog>
