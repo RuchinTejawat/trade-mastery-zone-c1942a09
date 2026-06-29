@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, RefreshCw, TrendingUp, Search } from "lucide-react";
+import { ArrowLeft, RefreshCw, TrendingUp, Search, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,24 +10,33 @@ import { BookCallDialog } from "@/components/BookCallDialog";
 
 type SheetResp = { rows: string[][]; updatedAt: string; error?: string };
 
-const isNumeric = (v: string) => v !== "" && !isNaN(Number(v.replace(/,/g, "").replace("%", "")));
+const toNum = (v: string | undefined) => {
+  if (!v) return NaN;
+  const n = Number(String(v).replace(/,/g, "").replace("%", ""));
+  return Number.isFinite(n) ? n : NaN;
+};
 
-const formatCell = (v: string, header: string) => {
-  if (v == null || v === "") return "—";
-  const h = header.toLowerCase();
-  if (h.includes("%") || h.includes("pop") || h.includes("prob")) {
-    if (isNumeric(v)) {
-      const n = Number(v.replace("%", ""));
-      const pct = Math.abs(n) <= 1 ? n * 100 : n;
-      return `${pct.toFixed(2)}%`;
-    }
-  }
-  if (isNumeric(v)) {
-    const n = Number(v.replace(/,/g, ""));
-    if (Number.isInteger(n) && Math.abs(n) >= 1000) return n.toLocaleString("en-IN");
-    return n.toLocaleString("en-IN", { maximumFractionDigits: 2 });
-  }
-  return v;
+const fmtNum = (n: number, digits = 2) =>
+  Number.isFinite(n) ? n.toLocaleString("en-IN", { maximumFractionDigits: digits }) : "—";
+
+const fmtPct = (raw: string | undefined) => {
+  if (!raw) return "—";
+  const s = String(raw).trim();
+  if (s.endsWith("%")) return s;
+  const n = toNum(s);
+  if (!Number.isFinite(n)) return s || "—";
+  const pct = Math.abs(n) <= 1 ? n * 100 : n;
+  return `${pct.toFixed(2)}%`;
+};
+
+const popClass = (raw: string | undefined) => {
+  const n = toNum(raw);
+  const pct = Math.abs(n) <= 1 ? n * 100 : n;
+  if (!Number.isFinite(pct)) return "text-muted-foreground";
+  if (pct >= 80) return "text-emerald-400 font-semibold";
+  if (pct >= 60) return "text-emerald-300";
+  if (pct >= 40) return "text-amber-300";
+  return "text-rose-400";
 };
 
 const OptionsAnalysis = () => {
@@ -53,12 +62,36 @@ const OptionsAnalysis = () => {
 
   useEffect(() => { load(); }, []);
 
-  const { headers, rows } = useMemo(() => {
+  // Parse the sheet layout:
+  //   Row 0: section labels ("CE" / "PE")
+  //   Row 1: real header row — cols 0-1 are summary labels, cols 3+ are table headers
+  //   Rows 2-4: summary key/value pairs in cols 0-1
+  //   Rows 3+ : strike-wise data in cols 3+
+  const { summary, headers, rows } = useMemo(() => {
     const all = data?.rows ?? [];
-    if (!all.length) return { headers: [] as string[], rows: [] as string[][] };
-    const headers = all[0];
-    const body = all.slice(1).filter((r) => r.some((c) => (c ?? "").toString().trim() !== ""));
-    return { headers, rows: body };
+    if (all.length < 4) return { summary: [] as { label: string; value: string }[], headers: [] as string[], rows: [] as string[][] };
+
+    const summary: { label: string; value: string }[] = [];
+    for (let i = 1; i < Math.min(all.length, 8); i++) {
+      const label = (all[i]?.[0] ?? "").trim();
+      const value = (all[i]?.[1] ?? "").trim();
+      if (label && value) summary.push({ label, value });
+    }
+
+    const headerRow = all[1] ?? [];
+    const headers = headerRow.slice(3).map((h) => (h ?? "").trim());
+
+    const body: string[][] = [];
+    for (let i = 3; i < all.length; i++) {
+      const r = all[i] ?? [];
+      const slice = r.slice(3, 3 + headers.length);
+      // require a strike value (column index 6 in slice — "Strike")
+      const strikeIdx = headers.findIndex((h) => h.toLowerCase() === "strike");
+      const strikeVal = strikeIdx >= 0 ? slice[strikeIdx] : "";
+      if (strikeVal && toNum(strikeVal) > 0) body.push(slice);
+    }
+
+    return { summary, headers, rows: body };
   }, [data]);
 
   const filtered = useMemo(() => {
@@ -67,7 +100,33 @@ const OptionsAnalysis = () => {
     return rows.filter((r) => r.some((c) => (c ?? "").toString().toLowerCase().includes(q)));
   }, [rows, query]);
 
+  const strikeIdx = headers.findIndex((h) => h.toLowerCase() === "strike");
+  const ceCount = strikeIdx >= 0 ? strikeIdx : 0;
+  const peCount = strikeIdx >= 0 ? headers.length - strikeIdx - 1 : 0;
+
   const updated = data?.updatedAt ? new Date(data.updatedAt).toLocaleString("en-IN") : null;
+
+  const renderCell = (val: string, header: string, isStrike: boolean) => {
+    const h = header.toLowerCase();
+    if (isStrike) {
+      return <span className="font-bold text-foreground">{fmtNum(toNum(val), 0)}</span>;
+    }
+    if (h.startsWith("pop")) {
+      return <span className={popClass(val)}>{fmtPct(val)}</span>;
+    }
+    if (h.startsWith("pmp")) {
+      return <span className="text-primary/90 font-medium">{fmtPct(val)}</span>;
+    }
+    if (h.includes("oi")) {
+      const n = toNum(val);
+      return <span className="text-muted-foreground">{Number.isFinite(n) ? fmtNum(n, 0) : val}</span>;
+    }
+    if (h.includes("ltp") || h.includes("be")) {
+      const n = toNum(val);
+      return <span className="tabular-nums">{Number.isFinite(n) ? fmtNum(n, 2) : val}</span>;
+    }
+    return <span>{val || "—"}</span>;
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -94,7 +153,7 @@ const OptionsAnalysis = () => {
       </header>
 
       <main className="container pt-28 pb-16">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <div>
             <Link to="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-3">
               <ArrowLeft className="h-4 w-4 mr-1" /> Back
@@ -102,9 +161,8 @@ const OptionsAnalysis = () => {
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Nifty <span className="text-gradient">Options Analysis</span>
             </h1>
-            <p className="text-muted-foreground mt-2 max-w-2xl">
-              Strike-wise LTP, PMP (Probabilistic Mid Price) and POP (Probability of Profit) for Nifty options.
-              Auto-refreshed from our quant calculation engine.
+            <p className="text-muted-foreground mt-2 max-w-2xl text-sm md:text-base">
+              Live strike-wise LTP, PMP (Probabilistic Mid Price), POP (Probability of Profit) and Open Interest for Nifty 50 options — straight from our quant engine.
             </p>
             {updated && <p className="text-xs text-muted-foreground mt-2">Last updated: {updated}</p>}
           </div>
@@ -115,7 +173,7 @@ const OptionsAnalysis = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search strike..."
-                className="pl-9 w-48"
+                className="pl-9 w-44"
               />
             </div>
             <Button variant="outline" size="icon" onClick={load} disabled={loading} aria-label="Refresh">
@@ -123,6 +181,22 @@ const OptionsAnalysis = () => {
             </Button>
           </div>
         </div>
+
+        {/* Summary cards */}
+        {summary.length > 0 && (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+            {summary.slice(0, 4).map((s) => (
+              <Card key={s.label} className="p-4 border-border/60 bg-card/60 backdrop-blur">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground uppercase tracking-wider">
+                  <Activity className="h-3.5 w-3.5" /> {s.label.replace(/_/g, " ")}
+                </div>
+                <div className="mt-1.5 text-xl md:text-2xl font-bold text-gradient">
+                  {s.value}
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
 
         <Card className="overflow-hidden border-border/60">
           {loading && !data && (
@@ -132,18 +206,35 @@ const OptionsAnalysis = () => {
             <div className="p-8 text-center">
               <Badge variant="destructive" className="mb-3">Couldn't load data</Badge>
               <p className="text-sm text-muted-foreground max-w-lg mx-auto">{error}</p>
-              <p className="text-xs text-muted-foreground mt-3">
-                If this is a permissions error, share the Google Sheet (view access) with the same service account used for the performance sheet.
-              </p>
             </div>
           )}
           {!loading && !error && headers.length > 0 && (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="bg-muted/40 border-b border-border">
-                  <tr>
+                <thead>
+                  {/* Group header */}
+                  <tr className="border-b border-border bg-muted/40">
+                    {ceCount > 0 && (
+                      <th colSpan={ceCount} className="px-4 py-2 text-center text-xs uppercase tracking-widest text-emerald-400 font-semibold">
+                        Call (CE)
+                      </th>
+                    )}
+                    <th className="px-4 py-2 text-center text-xs uppercase tracking-widest text-primary font-semibold">Strike</th>
+                    {peCount > 0 && (
+                      <th colSpan={peCount} className="px-4 py-2 text-center text-xs uppercase tracking-widest text-rose-400 font-semibold">
+                        Put (PE)
+                      </th>
+                    )}
+                  </tr>
+                  {/* Column header */}
+                  <tr className="border-b border-border bg-muted/20">
                     {headers.map((h, i) => (
-                      <th key={i} className="text-left font-semibold px-4 py-3 whitespace-nowrap text-foreground">
+                      <th
+                        key={i}
+                        className={`px-3 py-2 text-xs font-medium whitespace-nowrap ${
+                          i === strikeIdx ? "text-primary text-center" : "text-muted-foreground text-right"
+                        }`}
+                      >
                         {h || `Col ${i + 1}`}
                       </th>
                     ))}
@@ -152,19 +243,16 @@ const OptionsAnalysis = () => {
                 <tbody>
                   {filtered.map((row, ri) => (
                     <tr key={ri} className="border-b border-border/40 hover:bg-muted/30 transition-colors">
-                      {headers.map((h, ci) => {
-                        const raw = row[ci] ?? "";
-                        const v = formatCell(raw, h);
-                        const num = isNumeric(raw);
-                        return (
-                          <td
-                            key={ci}
-                            className={`px-4 py-3 whitespace-nowrap ${num ? "font-mono tabular-nums text-right" : ""} ${ci === 0 ? "font-semibold text-foreground" : "text-muted-foreground"}`}
-                          >
-                            {v}
-                          </td>
-                        );
-                      })}
+                      {headers.map((h, ci) => (
+                        <td
+                          key={ci}
+                          className={`px-3 py-2.5 whitespace-nowrap font-mono tabular-nums ${
+                            ci === strikeIdx ? "text-center bg-muted/20" : "text-right"
+                          }`}
+                        >
+                          {renderCell(row[ci] ?? "", h, ci === strikeIdx)}
+                        </td>
+                      ))}
                     </tr>
                   ))}
                   {filtered.length === 0 && (
@@ -176,8 +264,23 @@ const OptionsAnalysis = () => {
           )}
         </Card>
 
+        <div className="grid md:grid-cols-3 gap-3 mt-6 text-xs text-muted-foreground">
+          <Card className="p-4 border-border/60">
+            <div className="font-semibold text-foreground mb-1">POP</div>
+            Probability of Profit at expiry — derived from spot, IV and time-to-expiry.
+          </Card>
+          <Card className="p-4 border-border/60">
+            <div className="font-semibold text-foreground mb-1">PMP</div>
+            Probabilistic Mid Price — fair value estimate of the option premium.
+          </Card>
+          <Card className="p-4 border-border/60">
+            <div className="font-semibold text-foreground mb-1">BE</div>
+            Break-Even level the underlying must reach for the option buyer to recover the premium.
+          </Card>
+        </div>
+
         <p className="text-xs text-muted-foreground mt-6 max-w-3xl">
-          Disclaimer: The data shown is for educational and informational purposes only and should not be construed as investment advice. Options trading involves substantial risk.
+          Disclaimer: The data shown is for educational and informational purposes only and does not constitute investment advice. Options trading involves substantial risk of loss.
         </p>
       </main>
     </div>
