@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { BookCallDialog } from "@/components/BookCallDialog";
+import { LiveTicker } from "@/components/LiveTicker";
+
 
 type SheetResp = { rows: string[][]; updatedAt: string; error?: string };
 
@@ -169,7 +171,13 @@ const OptionsAnalysis = () => {
         </div>
       </header>
 
-      <main className="container pt-28 pb-16">
+      {/* Live market ticker */}
+      <div className="pt-16">
+        <LiveTicker />
+      </div>
+
+      <main className="container pt-6 pb-16">
+
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <div>
             <Link to="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-3">
