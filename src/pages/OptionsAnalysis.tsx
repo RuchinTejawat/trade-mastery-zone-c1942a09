@@ -62,14 +62,11 @@ const OptionsAnalysis = () => {
 
   useEffect(() => { load(); }, []);
 
-  // Parse the sheet layout:
-  //   Row 0: section labels ("CE" / "PE")
-  //   Row 1: real header row — cols 0-1 are summary labels, cols 3+ are table headers
-  //   Rows 2-4: summary key/value pairs in cols 0-1
-  //   Rows 3+ : strike-wise data in cols 3+
-  const { summary, headers, rows } = useMemo(() => {
+  const { summary, headers, rows, atmStrike } = useMemo(() => {
     const all = data?.rows ?? [];
-    if (all.length < 4) return { summary: [] as { label: string; value: string }[], headers: [] as string[], rows: [] as string[][] };
+    if (all.length < 4) {
+      return { summary: [] as { label: string; value: string }[], headers: [] as string[], rows: [] as string[][], atmStrike: null as number | null };
+    }
 
     const summary: { label: string; value: string }[] = [];
     for (let i = 1; i < Math.min(all.length, 8); i++) {
@@ -85,13 +82,15 @@ const OptionsAnalysis = () => {
     for (let i = 3; i < all.length; i++) {
       const r = all[i] ?? [];
       const slice = r.slice(3, 3 + headers.length);
-      // require a strike value (column index 6 in slice — "Strike")
-      const strikeIdx = headers.findIndex((h) => h.toLowerCase() === "strike");
-      const strikeVal = strikeIdx >= 0 ? slice[strikeIdx] : "";
+      const strikeIdxLocal = headers.findIndex((h) => h.toLowerCase() === "strike");
+      const strikeVal = strikeIdxLocal >= 0 ? slice[strikeIdxLocal] : "";
       if (strikeVal && toNum(strikeVal) > 0) body.push(slice);
     }
 
-    return { summary, headers, rows: body };
+    const atmRaw = summary.find((s) => s.label.toLowerCase().includes("atm"))?.value;
+    const atmStrike = atmRaw ? toNum(atmRaw) : null;
+
+    return { summary, headers, rows: body, atmStrike: Number.isFinite(atmStrike ?? NaN) ? atmStrike : null };
   }, [data]);
 
   const filtered = useMemo(() => {
@@ -105,6 +104,24 @@ const OptionsAnalysis = () => {
   const peCount = strikeIdx >= 0 ? headers.length - strikeIdx - 1 : 0;
 
   const updated = data?.updatedAt ? new Date(data.updatedAt).toLocaleString("en-IN") : null;
+
+  const isAtmRow = (row: string[]) => {
+    if (!atmStrike || strikeIdx < 0) return false;
+    const strikeVal = toNum(row[strikeIdx]);
+    return Number.isFinite(strikeVal) && strikeVal === atmStrike;
+  };
+
+  const cellBg = (ci: number) => {
+    if (ci === strikeIdx) return "bg-primary/5";
+    if (ci < strikeIdx) return "bg-emerald-500/[0.04]";
+    return "bg-rose-500/[0.04]";
+  };
+
+  const headerBg = (ci: number) => {
+    if (ci === strikeIdx) return "bg-primary/10";
+    if (ci < strikeIdx) return "bg-emerald-500/[0.08]";
+    return "bg-rose-500/[0.08]";
+  };
 
   const renderCell = (val: string, header: string, isStrike: boolean) => {
     const h = header.toLowerCase();
@@ -162,7 +179,7 @@ const OptionsAnalysis = () => {
               Nifty <span className="text-gradient">Options Analysis</span>
             </h1>
             <p className="text-muted-foreground mt-2 max-w-2xl text-sm md:text-base">
-              Live strike-wise LTP, PMP (Probabilistic Mid Price), POP (Probability of Profit) and Open Interest for Nifty 50 options — straight from our quant engine.
+              Live strike-wise LTP, PMP (Probability of Max Profit), POP (Probability of Profit) and Open Interest for Nifty 50 options — straight from our quant engine.
             </p>
             {updated && <p className="text-xs text-muted-foreground mt-2">Last updated: {updated}</p>}
           </div>
@@ -210,28 +227,30 @@ const OptionsAnalysis = () => {
           )}
           {!loading && !error && headers.length > 0 && (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-sm border-collapse">
                 <thead>
                   {/* Group header */}
-                  <tr className="border-b border-border bg-muted/40">
+                  <tr className="border-b border-border">
                     {ceCount > 0 && (
-                      <th colSpan={ceCount} className="px-4 py-2 text-center text-xs uppercase tracking-widest text-emerald-400 font-semibold">
+                      <th colSpan={ceCount} className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/[0.08] border-b-2 border-emerald-500/30">
                         Call (CE)
                       </th>
                     )}
-                    <th className="px-4 py-2 text-center text-xs uppercase tracking-widest text-primary font-semibold">Strike</th>
+                    <th className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-primary font-bold bg-primary/10 border-b-2 border-primary/30">
+                      Strike
+                    </th>
                     {peCount > 0 && (
-                      <th colSpan={peCount} className="px-4 py-2 text-center text-xs uppercase tracking-widest text-rose-400 font-semibold">
+                      <th colSpan={peCount} className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-rose-400 font-bold bg-rose-500/[0.08] border-b-2 border-rose-500/30">
                         Put (PE)
                       </th>
                     )}
                   </tr>
                   {/* Column header */}
-                  <tr className="border-b border-border bg-muted/20">
+                  <tr className="border-b border-border">
                     {headers.map((h, i) => (
                       <th
                         key={i}
-                        className={`px-3 py-2 text-xs font-medium whitespace-nowrap ${
+                        className={`px-3 py-2.5 text-xs font-semibold whitespace-nowrap ${headerBg(i)} ${
                           i === strikeIdx ? "text-primary text-center" : "text-muted-foreground text-right"
                         }`}
                       >
@@ -241,20 +260,40 @@ const OptionsAnalysis = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.map((row, ri) => (
-                    <tr key={ri} className="border-b border-border/40 hover:bg-muted/30 transition-colors">
-                      {headers.map((h, ci) => (
-                        <td
-                          key={ci}
-                          className={`px-3 py-2.5 whitespace-nowrap font-mono tabular-nums ${
-                            ci === strikeIdx ? "text-center bg-muted/20" : "text-right"
-                          }`}
-                        >
-                          {renderCell(row[ci] ?? "", h, ci === strikeIdx)}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
+                  {filtered.map((row, ri) => {
+                    const isAtm = isAtmRow(row);
+                    return (
+                      <tr
+                        key={ri}
+                        className={`border-b border-border/40 transition-colors ${
+                          isAtm ? "bg-primary/10" : "hover:bg-muted/30"
+                        }`}
+                      >
+                        {headers.map((h, ci) => (
+                          <td
+                            key={ci}
+                            className={`px-3 py-2.5 whitespace-nowrap font-mono tabular-nums ${
+                              isAtm ? "bg-primary/[0.03]" : cellBg(ci)
+                            } ${
+                              ci === strikeIdx ? "text-center" : "text-right"
+                            } ${isAtm && ci === strikeIdx ? "font-bold text-primary" : ""}`}
+                          >
+                            {ci === strikeIdx && isAtm ? (
+                              <span className="inline-flex items-center gap-1.5">
+                                <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                                {renderCell(row[ci] ?? "", h, ci === strikeIdx)}
+                                <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 border-primary/40 text-primary ml-1">
+                                  ATM
+                                </Badge>
+                              </span>
+                            ) : (
+                              renderCell(row[ci] ?? "", h, ci === strikeIdx)
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
                   {filtered.length === 0 && (
                     <tr><td colSpan={headers.length} className="px-4 py-8 text-center text-muted-foreground">No rows match your search.</td></tr>
                   )}
@@ -271,7 +310,7 @@ const OptionsAnalysis = () => {
           </Card>
           <Card className="p-4 border-border/60">
             <div className="font-semibold text-foreground mb-1">PMP</div>
-            Probabilistic Mid Price — fair value estimate of the option premium.
+            Probability of Max Profit — the likelihood of the option reaching its maximum theoretical payoff.
           </Card>
           <Card className="p-4 border-border/60">
             <div className="font-semibold text-foreground mb-1">BE</div>
