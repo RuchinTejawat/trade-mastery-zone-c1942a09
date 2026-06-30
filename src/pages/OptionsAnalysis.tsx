@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { BookCallDialog } from "@/components/BookCallDialog";
+import { LiveTicker } from "@/components/LiveTicker";
+
 
 type SheetResp = { rows: string[][]; updatedAt: string; error?: string };
 
@@ -169,7 +171,13 @@ const OptionsAnalysis = () => {
         </div>
       </header>
 
-      <main className="container pt-28 pb-16">
+      {/* Live market ticker */}
+      <div className="pt-16">
+        <LiveTicker />
+      </div>
+
+      <main className="container pt-6 pb-16">
+
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <div>
             <Link to="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-3">
@@ -226,32 +234,36 @@ const OptionsAnalysis = () => {
             </div>
           )}
           {!loading && !error && headers.length > 0 && (
-            <div className="overflow-x-auto">
+            <div className="overflow-auto max-h-[calc(100vh-220px)] relative">
               <table className="w-full text-sm border-collapse">
-                <thead>
+                <thead className="sticky top-0 z-20">
                   {/* Group header */}
-                  <tr className="border-b border-border">
+                  <tr>
                     {ceCount > 0 && (
-                      <th colSpan={ceCount} className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/[0.08] border-b-2 border-emerald-500/30">
+                      <th colSpan={ceCount} className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/20 backdrop-blur border-b-2 border-emerald-500/30">
                         Call (CE)
                       </th>
                     )}
-                    <th className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-primary font-bold bg-primary/10 border-b-2 border-primary/30">
+                    <th className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-primary font-bold bg-primary/20 backdrop-blur border-b-2 border-primary/30">
                       Strike
                     </th>
                     {peCount > 0 && (
-                      <th colSpan={peCount} className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-rose-400 font-bold bg-rose-500/[0.08] border-b-2 border-rose-500/30">
+                      <th colSpan={peCount} className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-rose-400 font-bold bg-rose-500/20 backdrop-blur border-b-2 border-rose-500/30">
                         Put (PE)
                       </th>
                     )}
                   </tr>
                   {/* Column header */}
-                  <tr className="border-b border-border">
+                  <tr>
                     {headers.map((h, i) => (
                       <th
                         key={i}
-                        className={`px-3 py-2.5 text-xs font-semibold whitespace-nowrap ${headerBg(i)} ${
-                          i === strikeIdx ? "text-primary text-center" : "text-muted-foreground text-right"
+                        className={`px-3 py-2.5 text-xs font-semibold whitespace-nowrap backdrop-blur border-b border-border ${
+                          i === strikeIdx
+                            ? "text-primary text-center bg-primary/15"
+                            : i < strikeIdx
+                              ? "text-emerald-300 text-right bg-emerald-500/15"
+                              : "text-rose-300 text-right bg-rose-500/15"
                         }`}
                       >
                         {h || `Col ${i + 1}`}
@@ -259,6 +271,7 @@ const OptionsAnalysis = () => {
                     ))}
                   </tr>
                 </thead>
+
                 <tbody>
                   {filtered.map((row, ri) => {
                     const isAtm = isAtmRow(row);
