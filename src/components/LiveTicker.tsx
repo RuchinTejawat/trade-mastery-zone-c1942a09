@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TrendingUp, TrendingDown, Circle } from "lucide-react";
+import { TrendingUp, TrendingDown, Circle, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 type Quote = {
@@ -19,11 +19,13 @@ const fmt = (n: number | null, d = 2) =>
 
 export const LiveTicker = () => {
   const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [updatedAt, setUpdatedAt] = useState<string | null>(null);
 
   const load = async () => {
     try {
       const { data } = await supabase.functions.invoke<Resp>("get-live-indices");
       if (data?.quotes) setQuotes(data.quotes.filter((q) => q.price != null));
+      if (data?.updatedAt) setUpdatedAt(data.updatedAt);
     } catch {
       /* silent */
     }
@@ -34,6 +36,10 @@ export const LiveTicker = () => {
     const id = setInterval(load, 30_000);
     return () => clearInterval(id);
   }, []);
+
+  const updatedText = updatedAt
+    ? new Date(updatedAt).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+    : null;
 
   if (quotes.length === 0) {
     return (
@@ -49,9 +55,17 @@ export const LiveTicker = () => {
   return (
     <div className="border-y border-border/60 bg-card/40 backdrop-blur overflow-hidden group">
       <div className="flex items-center">
-        <div className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-rose-400 border-r border-border/60 shrink-0">
-          <Circle className="h-2 w-2 fill-rose-500 text-rose-500 animate-pulse" />
-          Live
+        <div className="hidden sm:flex flex-col items-start gap-0.5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider border-r border-border/60 shrink-0 leading-tight">
+          <div className="flex items-center gap-1.5 text-rose-400">
+            <Circle className="h-2 w-2 fill-rose-500 text-rose-500 animate-pulse" />
+            Live
+          </div>
+          {updatedText && (
+            <div className="flex items-center gap-1 text-[9px] text-muted-foreground normal-case">
+              <Clock className="h-2.5 w-2.5" />
+              {updatedText}
+            </div>
+          )}
         </div>
         <div className="relative flex-1 overflow-hidden">
           <div className="flex gap-8 py-2 animate-marquee whitespace-nowrap group-hover:[animation-play-state:paused]">
