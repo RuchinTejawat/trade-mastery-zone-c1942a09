@@ -240,15 +240,15 @@ const OptionsAnalysis = () => {
                   {/* Group header */}
                   <tr>
                     {ceCount > 0 && (
-                      <th colSpan={ceCount} className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/20 backdrop-blur border-b-2 border-emerald-500/30">
+                      <th colSpan={ceCount} className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-emerald-300 font-bold bg-emerald-500/25 backdrop-blur border-b-2 border-emerald-500/40">
                         Call (CE)
                       </th>
                     )}
-                    <th className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-primary font-bold bg-primary/20 backdrop-blur border-b-2 border-primary/30">
+                    <th className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-sky-300 font-bold bg-sky-500/25 backdrop-blur border-b-2 border-sky-500/40">
                       Strike
                     </th>
                     {peCount > 0 && (
-                      <th colSpan={peCount} className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-rose-400 font-bold bg-rose-500/20 backdrop-blur border-b-2 border-rose-500/30">
+                      <th colSpan={peCount} className="px-4 py-2.5 text-center text-xs uppercase tracking-widest text-rose-300 font-bold bg-rose-500/25 backdrop-blur border-b-2 border-rose-500/40">
                         Put (PE)
                       </th>
                     )}
@@ -260,10 +260,10 @@ const OptionsAnalysis = () => {
                         key={i}
                         className={`px-3 py-2.5 text-xs font-semibold whitespace-nowrap backdrop-blur border-b border-border ${
                           i === strikeIdx
-                            ? "text-primary text-center bg-primary/15"
+                            ? "text-sky-300 text-center bg-sky-500/20"
                             : i < strikeIdx
-                              ? "text-emerald-300 text-right bg-emerald-500/15"
-                              : "text-rose-300 text-right bg-rose-500/15"
+                              ? "text-emerald-300 text-right bg-emerald-500/20"
+                              : "text-rose-300 text-right bg-rose-500/20"
                         }`}
                       >
                         {h || `Col ${i + 1}`}
