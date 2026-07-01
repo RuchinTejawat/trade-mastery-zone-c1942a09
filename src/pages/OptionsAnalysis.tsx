@@ -114,15 +114,15 @@ const OptionsAnalysis = () => {
   };
 
   const cellBg = (ci: number) => {
-    if (ci === strikeIdx) return "bg-primary/5";
-    if (ci < strikeIdx) return "bg-emerald-500/[0.04]";
-    return "bg-rose-500/[0.04]";
+    if (ci === strikeIdx) return "bg-sky-500/[0.06]";
+    if (ci < strikeIdx) return "bg-emerald-500/[0.07]";
+    return "bg-rose-500/[0.07]";
   };
 
   const headerBg = (ci: number) => {
-    if (ci === strikeIdx) return "bg-primary/10";
-    if (ci < strikeIdx) return "bg-emerald-500/[0.08]";
-    return "bg-rose-500/[0.08]";
+    if (ci === strikeIdx) return "bg-sky-500/15";
+    if (ci < strikeIdx) return "bg-emerald-500/15";
+    return "bg-rose-500/15";
   };
 
   const renderCell = (val: string, header: string, isStrike: boolean) => {
